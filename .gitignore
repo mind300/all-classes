@@ -5,7 +5,7 @@
 /public/storage
 /storage/*.key
 /vendor
-/config/database.php
+/config/database
 /config/*
 .env
 
