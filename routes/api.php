@@ -28,6 +28,7 @@ Route::group(['middleware' => ['api']], function () {
 
         Route::post('/password/forget', 'Auth\AuthController@forgetPassword')->name('password.email');
         Route::post('/password/reset', 'Auth\AuthController@resetPassword')->name('password.reset');
+        Route::post('/check/token', 'Auth\AuthController@checkToken');
     });
 
     // Authorization

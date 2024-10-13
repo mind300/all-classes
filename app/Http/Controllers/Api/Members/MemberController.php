@@ -26,6 +26,7 @@ class MemberController extends Controller
     {
         $member = Member::create($request->validated());
         $member->user()->associate(auth_user())->save();
+        $user = User::find(auth_user_id())->update(['name' => "{$member->first_name} {$member->last_name}"]);
         return messageResponse();
     }
 

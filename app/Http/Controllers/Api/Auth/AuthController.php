@@ -9,6 +9,7 @@ use App\Http\Requests\Auth\ForgetPassword;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPassword;
+use App\Http\Requests\Auth\TokenRequest;
 // Illuminate
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
@@ -68,6 +69,13 @@ class AuthController extends Controller
             event(new PasswordReset($user));
         });
         return $status[0] === Password::PASSWORD_RESET ? messageResponse($status[0]) : messageResponse($status[0], false, $status[1]);
+    }
+
+    // Check Token Reset
+    public function checkToken(TokenRequest $request){
+        $user = User::firstWhere('email',$request->validated('email'));
+        $status = Password::tokenExists($user, $request->validated('token'));
+        return $status ? messageResponse($status) : messageResponse($status, false, 403);
     }
 
     // Refresh a token.

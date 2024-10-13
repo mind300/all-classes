@@ -196,5 +196,5 @@ class PasswordBroker implements PasswordBrokerContract
     public function getRepository()
     {
         return $this->tokens;
-    }
+    }    
 }

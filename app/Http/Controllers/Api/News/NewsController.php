@@ -19,7 +19,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with(['likes', 'comments.replies'])->paginate();
+        $news = News::with(['likes', 'comments.user', 'comments.replies.user'])->paginate();
         return contentResponse($news);
     }
 
@@ -37,7 +37,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        return contentResponse($news->load(['likes', 'comments']));
+        return contentResponse($news->load(['likes.user', 'comments.user']));
     }
 
     /**
@@ -66,10 +66,12 @@ class NewsController extends Controller
         $like = $news->likes()->firstWhere('user_id', auth()->id());
 
         if ($like) {
+            $news->decrement('likes_count');
             $like->forceDelete(); // Dislike if already liked
             return messageResponse('User Unlike');
         } else {
-            $news->likes()->create(['user_id' => auth()->id()]); // Like if not already liked
+            $news->likes()->create(['user_id' => auth_user_id()]); // Like if not already liked
+            $news->increment('likes_count');
         }
         return messageResponse('User Like');
     }

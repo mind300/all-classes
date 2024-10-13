@@ -86,4 +86,8 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
     {
         return $this->hasOne(Member::class, 'user_id');
     }
+
+    public function mem(){
+        return $this->hasOne(Member::class)->select('id', 'first_name', 'user_id'); // Adjust according to your DB structure
+    }
 }
