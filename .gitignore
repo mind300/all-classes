@@ -5,8 +5,9 @@
 /public/storage
 /storage/*.key
 /vendor
-/config/database
+/config/database.php
 /config/*
+!.gitignore  # This line allows .gitignore itself to be tracked
 .env
 
 .env.backup
