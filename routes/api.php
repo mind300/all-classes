@@ -54,6 +54,9 @@ Route::group(['middleware' => ['api']], function () {
         Route::apiResource('events', 'Events\EventController');
         Route::post('events/{event}', 'Events\EventController@update')->name('events.update');
 
+        // Events Histories
+        Route::apiResource('event/history', 'Events\EventHistoryController');
+
         // Jobs
         Route::apiResource('jobs', 'Jobs\JobController');
         Route::post('jobs/{job}', 'Jobs\JobController@update')->name('jobs.update');

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Event extends BaseModel
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class EventHistory extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
@@ -10,18 +12,15 @@ class Event extends BaseModel
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'date',
-        'time',
-        'place',
-        'description',
-        'user_id'
+        'event_id',
+        'user_id',
+        'going',
     ];
 
     // ====================== Relations =================== //
-    public function history()
+    public function event()
     {
-        return $this->hasMany(EventHistory::class, 'event_id');
+        return $this->belongsTo(Event::class, 'event_id');
     }
 
     public function user()
