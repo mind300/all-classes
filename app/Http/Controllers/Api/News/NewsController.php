@@ -37,7 +37,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        return contentResponse($news->load(['likes.user', 'comments.user', 'comments.replies.user']));
+        return contentResponse($news->load(['likes', 'comments.user', 'comments.replies.user']));
     }
 
     /**

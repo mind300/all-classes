@@ -19,14 +19,16 @@ if (!function_exists('contentResponse')) {
     function contentResponse($content, $message = 'success', $success = true, $status = 200)
     {
         $response = [
-            'content' => $content->items(),
+            'content' => $content,
             'success' => $success,
             'message' => $message,
             'status' => $status,
         ];
 
         // If pagination data is passed, include it in the response
-        if ($content->isNotEmpty()) {
+        if ($content instanceof \Illuminate\Pagination\LengthAwarePaginator || $content instanceof \Illuminate\Pagination\Paginator) {
+            $response['content'] = $content->items();
+
             $response['pagination'] = [
                 'total_items' => $content->total(),
                 'per_page' => $content->perPage(),
