@@ -13,7 +13,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::get();
+        $offers = Offer::paginate(10);
         return contentResponse($offers);
     }
 

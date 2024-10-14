@@ -14,7 +14,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::get();
+        $jobs = Job::paginate(10);
         return contentResponse($jobs);
     }
 

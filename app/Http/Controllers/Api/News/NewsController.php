@@ -19,7 +19,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with(['likes', 'comments.user', 'comments.replies.user'])->paginate();
+        $news = News::with(['likes', 'comments.user', 'comments.replies.user'])->paginate(10);
         return contentResponse($news);
     }
 

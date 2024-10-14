@@ -13,7 +13,7 @@ class BuySellController extends Controller
      */
     public function index()
     {
-        $buyAndSells = BuySell::get();
+        $buyAndSells = BuySell::paginate(10);
         return contentResponse($buyAndSells);
     }
 

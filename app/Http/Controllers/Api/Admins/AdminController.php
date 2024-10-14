@@ -14,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = User::whereHasRole(['admin'])->get();
+        $admins = User::whereHasRole(['admin'])->paginate(10);
         return contentResponse($admins);
     }
 

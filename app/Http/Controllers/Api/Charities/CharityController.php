@@ -13,7 +13,7 @@ class CharityController extends Controller
      */
     public function index()
     {
-        $charities = Charity::get();
+        $charities = Charity::paginate(10);
         return contentResponse($charities);
     }
 

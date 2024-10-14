@@ -13,7 +13,7 @@ class RewardController extends Controller
      */
     public function index()
     {
-        $rewards = Reward::get();
+        $rewards = Reward::paginate(10);
         return contentResponse($rewards);
     }
 
