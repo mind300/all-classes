@@ -30,7 +30,6 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
         'email',
         'status',
         'password',
-        'email_verified_at'
     ];
 
     /**
@@ -41,6 +40,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at'
     ];
 
     /**
