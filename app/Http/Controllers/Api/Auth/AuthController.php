@@ -75,7 +75,7 @@ class AuthController extends Controller
     public function checkToken(TokenRequest $request){
         $user = User::firstWhere('email',$request->validated('email'));
         $status = Password::tokenExists($user, $request->validated('token'));
-        return $status ? messageResponse($status) : messageResponse($status, false, 403);
+        return $status ? messageResponse() : messageResponse($status, false, 403);
     }
 
     // Refresh a token.

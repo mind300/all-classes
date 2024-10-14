@@ -1,15 +1,12 @@
 /.phpunit.cache
+/config/database.php
 /node_modules
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-/config/database.php
-/config/*
-!.gitignore  # This line allows .gitignore itself to be tracked
 .env
-
 .env.backup
 .env.production
 .phpunit.result.cache
