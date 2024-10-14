@@ -10,6 +10,7 @@ class Job extends BaseModel
      * @var array<int, string>
      */
     protected $fillable = [
+        'title',
         'type',
         'remote',
         'location',

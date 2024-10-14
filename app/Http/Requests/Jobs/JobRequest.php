@@ -23,6 +23,7 @@ class JobRequest extends FormRequest
     {
         return [
             // 'media' => 'required|media',
+            'title' => 'required|string',
             'type' => 'required|string',
             'location' => 'nullable|string',
             'salary_range' => 'required|decimal:0,2',
