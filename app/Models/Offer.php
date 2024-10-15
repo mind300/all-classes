@@ -18,4 +18,6 @@ class Offer extends BaseModel
         'description',
         'brand_id',
     ];
+
+    // ====================== Relations =================== //
 }

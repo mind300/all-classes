@@ -16,4 +16,6 @@ class Reward extends BaseModel
         'redeem_point',
         'description',
     ];
+
+    // ====================== Relations =================== //
 }
