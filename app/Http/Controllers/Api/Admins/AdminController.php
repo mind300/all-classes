@@ -44,7 +44,6 @@ class AdminController extends Controller
     {
         $admin->update($request->validated());
 
-        // Sync permissions if provided
         if ($request->has('managments')) {
             $admin->syncPermissions($request->validated('managments'));
         }

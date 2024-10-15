@@ -23,7 +23,7 @@ class AdminRequest extends FormRequest
     {
         $userId = $this->route('admin.id') ?? null;
         return [
-            // 'name' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
             'email' => 'required|email:filter|unique:users,email,' . $userId,
             'managments' => 'required|array',
         ];
