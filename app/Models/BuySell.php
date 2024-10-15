@@ -15,6 +15,10 @@ class BuySell extends BaseModel
         'description',
         'user_id'
     ];
-    
+
     // ====================== Relations =================== //
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -13,7 +13,7 @@ class BuySellController extends Controller
      */
     public function index()
     {
-        $buyAndSells = BuySell::paginate(10);
+        $buyAndSells = BuySell::with('user')->paginate(10);
         return contentResponse($buyAndSells);
     }
 
@@ -22,7 +22,7 @@ class BuySellController extends Controller
      */
     public function store(BuySellRequest $request)
     {
-        $buyAnSell = BuySell::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
+        $buyAnSell = BuySell::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
         return contentResponse($buyAnSell);
     }
 
