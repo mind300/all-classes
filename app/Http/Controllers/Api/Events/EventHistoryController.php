@@ -15,7 +15,7 @@ class EventHistoryController extends Controller
     public function index()
     {
         $events = Event::with(['history' => function ($query) {
-            $query->where('goind', true);
+            $query->where('going', true);
         }])->paginate(10);
         return contentResponse($events);
     }
