@@ -28,6 +28,7 @@ class VerifyApp
         $databaseSwitcher = new DatabaseSwitcher();
         $databaseSwitcher->setConnection($database);
 
+
         return $next($request);
     }
 }

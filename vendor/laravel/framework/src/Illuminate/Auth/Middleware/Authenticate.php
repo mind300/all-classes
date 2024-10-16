@@ -55,6 +55,8 @@ class Authenticate implements AuthenticatesRequests
 
     public function handle($request, Closure $next, ...$guards)
     {
+        
+        $this->authenticate($request, $guards);
         $database = $request->header('Database-App');
 
         // Check if the database connection exists
@@ -67,7 +69,6 @@ class Authenticate implements AuthenticatesRequests
         $databaseSwitcher = new DatabaseSwitcher();
         $databaseSwitcher->setConnection($database);
 
-        $this->authenticate($request, $guards);
         return $next($request);
     }
 
