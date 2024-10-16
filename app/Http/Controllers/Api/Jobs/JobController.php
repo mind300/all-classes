@@ -14,7 +14,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::paginate(10);
+        $jobs = Job::with('user')->paginate(10);
         return contentResponse($jobs);
     }
 
@@ -32,7 +32,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        return contentResponse($job);
+        return contentResponse($job->load('user'));
     }
 
     /**

@@ -21,5 +21,8 @@ class Job extends BaseModel
         'user_id',
     ];
 
-    // ====================== Relations =================== //
+    // ====================== Relations =================== //\
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
