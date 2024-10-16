@@ -26,9 +26,10 @@ class JobRequest extends FormRequest
             'title' => 'required|string',
             'type' => 'required|string',
             'location' => 'nullable|string',
-            'salary_range' => 'required|decimal:0,2',
+            'salary_range' => 'required|numeric',
             'user_experience' => 'required|string',
-            'description' => 'required|string'
+            'how_to_apply' => 'nullable|string',
+            'description' => 'required|string',
         ];
     }
 }

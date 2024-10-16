@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('salary_range')->nullable();
             $table->longText('user_experience');
             $table->longText('description');
+            $table->longText('how_to_apply');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

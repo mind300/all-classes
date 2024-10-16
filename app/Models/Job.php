@@ -17,6 +17,7 @@ class Job extends BaseModel
         'salary_range',
         'user_experience',
         'description',
+        'how_to_apply',
         'user_id',
     ];
 
