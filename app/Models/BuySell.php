@@ -12,6 +12,8 @@ class BuySell extends BaseModel
     protected $fillable = [
         'title',
         'place',
+        'price_before',
+        'price_after',
         'description',
         'user_id'
     ];
