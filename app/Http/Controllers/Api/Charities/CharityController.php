@@ -14,8 +14,8 @@ class CharityController extends Controller
      */
     public function index()
     {
-        $charities = Charity::paginate(10);
-        return contentResponse($charities->load('services'));
+        $charities = Charity::with('services')->paginate(10);
+        return contentResponse($charities);
     }
 
     /**
