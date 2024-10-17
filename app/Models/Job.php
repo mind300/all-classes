@@ -11,7 +11,6 @@ class Job extends BaseModel
      */
     protected $fillable = [
         'title',
-        'type',
         'remote',
         'location',
         'salary_range',

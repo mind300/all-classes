@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->double('price_before');
             $table->double('price_after');
+            $table->string('qr_code');
             $table->string('description');
             $table->timestamps();
         });

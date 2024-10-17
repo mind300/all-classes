@@ -71,6 +71,7 @@ Route::group(['middleware' => ['api']], function () {
 
         // Offers
         Route::apiResource('offers', 'Offers\OfferController');
+        Route::get('offers/category/{category}', 'Offers\OfferController@index')->name('offers.index');
         Route::post('offers/{offer}', 'Offers\OfferController@update')->name('offers.update');
 
         // Rewards

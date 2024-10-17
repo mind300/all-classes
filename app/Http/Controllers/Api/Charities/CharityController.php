@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Charities;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Charities\CharityRequest;
 use App\Models\Charity;
+use App\Models\Service;
 
 class CharityController extends Controller
 {
@@ -14,7 +15,7 @@ class CharityController extends Controller
     public function index()
     {
         $charities = Charity::paginate(10);
-        return contentResponse($charities);
+        return contentResponse($charities->load('services'));
     }
 
     /**
@@ -23,6 +24,7 @@ class CharityController extends Controller
     public function store(CharityRequest $request)
     {
         $charity = Charity::create($request->validated());
+        $charity = Service::create(array_merge($request->validated(), ['charity_id' => $charity->id]));
         return messageResponse();
     }
 

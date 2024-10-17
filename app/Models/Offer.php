@@ -16,6 +16,7 @@ class Offer extends BaseModel
         'price_before',
         'price_after',
         'description',
+        'qr_code',
         'brand_id',
     ];
 

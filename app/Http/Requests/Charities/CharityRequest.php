@@ -23,9 +23,14 @@ class CharityRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'info' => 'required|string',
-            'contact' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'website' => 'required|string',
+            'email' => 'required|string',
             'description' => 'required|string',
+            'services' => 'required|array',
+            'services.*.name' => 'required|string',
+            'services.*.description' => 'required|string',
         ];
     }
 }

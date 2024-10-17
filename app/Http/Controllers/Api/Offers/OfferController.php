@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\Offers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Offers\OfferRequest;
 use App\Models\Offer;
+use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($category = null)
     {
-        $offers = Offer::paginate(10);
+        $offers = $category != 'all' ? Offer::where('category', $category)->paginate(10) : Offer::paginate(10);
         return contentResponse($offers);
     }
 
@@ -22,7 +23,8 @@ class OfferController extends Controller
      */
     public function store(OfferRequest $request)
     {
-        $offer = Offer::create($request->validated());
+        $qrCode = mt_rand(10000, 99999);
+        $offer = Offer::create(array_merge($request->validated(), ['qr_code' => $qrCode]));
         return messageResponse();
     }
 
