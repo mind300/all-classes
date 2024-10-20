@@ -14,4 +14,11 @@ class OfferUse extends BaseModel
         'user_id',
         'community_name'
     ];
+
+    // ====================== Relations =================== //
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+

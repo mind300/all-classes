@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -18,7 +18,7 @@ class ReplyController extends Controller
         $reply = Reply::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
         return messageResponse();
     }
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -33,7 +33,7 @@ class ReplyController extends Controller
      */
     public function show($comment_id)
     {
-        $replies = Reply::with('user')->where('comment_id', $comment_id)->paginate(10);
+        $replies = Reply::with('user')->where('comment_id', $comment_id)->latest()->paginate(10);
         return contentResponse($replies);
     }
 

@@ -11,7 +11,7 @@ class OfferUseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class OfferUseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'qr_code' => 'required|m:4|exists:offers,qr_code',
+            'offer_id' => 'required|exists:mind.offers,id',
+            'qr_code' => 'required|integer|exists:mind.offers,qr_code',
             'user_id' => 'required|integer',
             'community_name' => 'required|string'
         ];

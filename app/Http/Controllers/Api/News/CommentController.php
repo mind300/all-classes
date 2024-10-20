@@ -32,7 +32,7 @@ class CommentController extends Controller
      */
     public function show($news_id)
     {
-        $comments = Comment::with('user')->where('news_id', $news_id)->paginate(10);
+        $comments = Comment::with('user')->where('news_id', $news_id)->latest()->paginate(10);
         return contentResponse($comments);
     }
 
