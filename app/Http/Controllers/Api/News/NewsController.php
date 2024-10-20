@@ -75,20 +75,4 @@ class NewsController extends Controller
         }
         return messageResponse('User Like');
     }
-    /**
-     * Make comment for specific news.
-     */
-    public function comment(CommentRequest $request)
-    {
-        $comment = Comment::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
-        return messageResponse();
-    }
-    /**
-     * Make reply for specific comment.
-     */
-    public function reply(ReplyRequest $request)
-    {
-        $reply = Reply::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
-        return messageResponse();
-    }
 }

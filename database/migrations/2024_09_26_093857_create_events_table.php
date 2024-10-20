@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            
             $table->string('title');
             $table->date('date');
             $table->time('time');
             // $table->foreignId('group_chat_id')->constrained('group_chat')->onDelete('cascade');
             $table->string('place')->nullable();
             $table->longText('description');
+
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

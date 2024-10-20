@@ -18,7 +18,7 @@ class DateFormateCasts implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return Carbon::parse($value)->format('D-m-d H:m A');
+        return Carbon::parse($value)->format('D-m-y H:m A');
     }
 
     /**

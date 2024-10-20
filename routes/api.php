@@ -47,8 +47,15 @@ Route::group(['middleware' => ['api']], function () {
         // News
         Route::apiResource('news', 'News\NewsController');
         Route::get('news/like/{news}', 'News\NewsController@likeOrUnlike')->name('news.likeOrUnlike');
-        Route::post('news/comment', 'News\NewsController@comment')->name('news.comment');
-        Route::post('news/comment/reply', 'News\NewsController@reply')->name('news.reply');
+
+        // News / Comments
+        Route::apiResource('news/comment', 'News\CommentController');
+        Route::get('news/comment/{news_id}', 'News\CommentController@show')->name('comment.show');
+
+
+        // News / Comments / Replies
+        Route::apiResource('news/comment/reply', 'News\ReplyController');
+        Route::get('news/comment/reply/{comment_id}', 'News\ReplyController@show')->name('reply.show');
 
         // Events
         Route::apiResource('events', 'Events\EventController');
@@ -81,5 +88,14 @@ Route::group(['middleware' => ['api']], function () {
         // Charities
         Route::apiResource('charities', 'Charities\CharityController');
         Route::post('charities/{charity}', 'Charities\CharityController@update')->name('charities.update');
+
+        // Policies
+        Route::apiResource('policies', 'Charities\CharityController');
+
+        // Terms & Condations
+        Route::apiResource('terms', 'Charities\CharityController');
+
+        // About
+        Route::apiResource('abouts', 'Charities\CharityController');
     });
 });

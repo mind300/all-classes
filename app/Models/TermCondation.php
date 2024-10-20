@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class OfferUse extends BaseModel
+class TermCondation extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
@@ -10,8 +10,7 @@ class OfferUse extends BaseModel
      * @var array<int, string>
      */
     protected $fillable = [
-        'offer_id',
-        'user_id',
-        'community_name'
+        'title',
+        'description'
     ];
 }
