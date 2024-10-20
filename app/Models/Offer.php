@@ -23,6 +23,6 @@ class Offer extends BaseModel
     // ====================== Relations =================== //
     public function brands()
     {
-        return $this->hasMany(Brand::class);
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 }
