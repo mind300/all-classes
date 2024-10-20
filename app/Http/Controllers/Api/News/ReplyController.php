@@ -33,7 +33,7 @@ class ReplyController extends Controller
      */
     public function show($comment_id)
     {
-        $replies = Reply::where('comment_id', $comment_id)->paginate(10);
+        $replies = Reply::with('user')->where('comment_id', $comment_id)->paginate(10);
         return contentResponse($replies);
     }
 
