@@ -82,6 +82,9 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('offers/{offer}', 'Offers\OfferController@update')->name('offers.update');
         Route::post('offers/scan/qrcode', 'Offers\OfferUseController@scanOffer');
 
+        // Cashires
+        Route::apiResource('cashiers', 'Cashires\CashierController');
+
         // Rewards
         Route::apiResource('rewards', 'Rewards\RewardController');
         Route::post('rewards/{reward}', 'Rewards\RewardController@update')->name('rewards.update');

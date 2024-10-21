@@ -22,10 +22,9 @@ class OfferUseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'offer_id' => 'required|exists:mind.offers,id',
             'qr_code' => 'required|integer|exists:mind.offers,qr_code',
-            'user_id' => 'required|integer',
-            'community_name' => 'required|string'
+            'user_id' => 'required|string',
+            // 'community_name' => 'required|string'
         ];
     }
 }

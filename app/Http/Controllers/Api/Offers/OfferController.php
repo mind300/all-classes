@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Offers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Offers\OfferRequest;
 use App\Models\Offer;
-use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {

@@ -6,6 +6,7 @@ if (!function_exists('authResponse')) {
     {
         return response()->json([
             'user_id' => auth_user_id(),
+            'user_id_encrypt' => encrypt(auth_user_id()),
             'token' => $token,
             'message' => $message,
             'status' => $status,
