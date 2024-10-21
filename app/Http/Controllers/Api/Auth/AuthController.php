@@ -16,18 +16,25 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 // Models
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
     // Get a JWT via given credentials.
     public function login(LoginRequest $request)
     {
-        $token = auth()->attempt($request->validated());
+        $database = $request->header('Database-App');
+
+        // Attempt to authenticate the user with the credentials provided
+        $token = auth()->claims(['database' => $database])->attempt($request->validated());
+
         if (!$token) {
-            return messageResponse('Email or Password in correct..', false, 401);
+            return messageResponse('Email or Password incorrect.', false, 401);
         }
+
         return authResponse($token, 'Login Successfully');
     }
+
 
     // Get a JWT via given registred.
     public function register(RegisterRequest $request)
@@ -72,8 +79,9 @@ class AuthController extends Controller
     }
 
     // Check Token Reset
-    public function checkToken(TokenRequest $request){
-        $user = User::firstWhere('email',$request->validated('email'));
+    public function checkToken(TokenRequest $request)
+    {
+        $user = User::firstWhere('email', $request->validated('email'));
         $status = Password::tokenExists($user, $request->validated('token'));
         return $status ? messageResponse() : messageResponse($status, false, 403);
     }

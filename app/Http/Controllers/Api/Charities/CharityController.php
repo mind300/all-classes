@@ -24,7 +24,9 @@ class CharityController extends Controller
     public function store(CharityRequest $request)
     {
         $charity = Charity::create($request->validated());
-        $charity = Service::create(array_merge($request->validated(), ['charity_id' => $charity->id]));
+        foreach ($request->validated('services') as $service) {
+            $charity = Service::create(array_merge($service, ['charity_id' => $charity->id]));
+        }
         return messageResponse();
     }
 

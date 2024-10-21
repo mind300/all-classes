@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Charity extends BaseModel
 {
-     /**
+    /**
+     * Use the 'mind' database
+     */
+    protected $connection = 'mind';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

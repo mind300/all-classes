@@ -32,7 +32,7 @@ Route::group(['middleware' => ['api']], function () {
     });
 
     // Authorization
-    Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => ['auth:api']], function () {
         // Applications
         Route::apiResource('applications', 'Applications\ApplicationController');
 

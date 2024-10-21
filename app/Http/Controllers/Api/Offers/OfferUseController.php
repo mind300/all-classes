@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Offers\OfferUseRequest;
 use App\Models\Offer;
 use App\Models\OfferUse;
-use Illuminate\Support\Facades\DB;
 
 class OfferUseController extends Controller
 {

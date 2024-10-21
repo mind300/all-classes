@@ -29,7 +29,7 @@ class CharityRequest extends FormRequest
             'email' => 'required|string',
             'description' => 'required|string',
             'services' => 'required|array',
-            'services.*.name' => 'required|string',
+            'services.*.title' => 'required|string',
             'services.*.description' => 'required|string',
         ];
     }

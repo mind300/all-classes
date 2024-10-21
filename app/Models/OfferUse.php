@@ -21,4 +21,3 @@ class OfferUse extends BaseModel
         return $this->belongsTo(User::class);
     }
 }
-

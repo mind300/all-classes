@@ -45,10 +45,10 @@ class Handler extends ExceptionHandler
         }
 
         // Handle QueryException for database errors
-        // if ($exception instanceof QueryException && strpos($exception->getMessage(), '1146 Table') !== false) {
-        //     // Return a custom JSON response for 404 errors
-        //     return response()->json(['error' => 'The requested table was not found.'], 404);
-        // }
+        if ($exception instanceof QueryException && strpos($exception->getMessage(), '1146 Table') !== false) {
+            // Return a custom JSON response for 404 errors
+            return response()->json(['error' => 'The requested table was not found.'], 404);
+        }
 
         // Call Laravel's default exception handler for all other exceptions
         return parent::render($request, $exception);

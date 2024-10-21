@@ -12,4 +12,10 @@ class Brand extends BaseModel
     protected $fillable = [
         'name',
     ];
+
+    // ====================== Relations =================== //
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }

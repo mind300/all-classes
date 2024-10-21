@@ -8,7 +8,6 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
 use Illuminate\Http\Request;
-use App\Http\Middleware\VerifyApp; // Import your VerifyApp middleware
 
 class Authenticate implements AuthenticatesRequests
 {
@@ -55,8 +54,6 @@ class Authenticate implements AuthenticatesRequests
 
     public function handle($request, Closure $next, ...$guards)
     {
-        
-        $this->authenticate($request, $guards);
         $database = $request->header('Database-App');
 
         // Check if the database connection exists
@@ -68,6 +65,7 @@ class Authenticate implements AuthenticatesRequests
 
         $databaseSwitcher = new DatabaseSwitcher();
         $databaseSwitcher->setConnection($database);
+        $this->authenticate($request, $guards);
 
         return $next($request);
     }
@@ -87,14 +85,28 @@ class Authenticate implements AuthenticatesRequests
             $guards = [null];
         }
 
+        // Get the current database from the request header
+        $database = $request->header('Database-App');
+
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->check()) {
+                $user = $this->auth->guard($guard)->user();
+
+                // Check if the token's 'database' matches the current database
+                $tokenDatabase = $this->auth->guard($guard)->payload()->get('database');
+
+                if ($tokenDatabase !== $database) {
+                    // Token database does not match the current request database, log out the user
+                    $this->unauthenticated($request, $guards);
+                }
+
                 return $this->auth->shouldUse($guard);
             }
         }
 
         $this->unauthenticated($request, $guards);
     }
+
 
     /**
      * Handle an unauthenticated user.

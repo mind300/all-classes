@@ -13,7 +13,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::paginate(10);
+        $brands = Brand::withCount('offers')->paginate(10);
         return contentResponse($brands);
     }
 

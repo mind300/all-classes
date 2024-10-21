@@ -10,7 +10,7 @@ class Service extends BaseModel
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'title',
         'description',
         'charity_id',
     ];
