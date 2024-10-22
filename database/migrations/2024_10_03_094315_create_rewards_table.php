@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->longText('name');
             $table->integer('quantity')->default(1);
-            $table->integer('discount')->default(0);
             $table->integer('redeem_points');
             $table->string('description');
             $table->enum('status', ['active', 'inactive', 'sold_out'])->default('active');

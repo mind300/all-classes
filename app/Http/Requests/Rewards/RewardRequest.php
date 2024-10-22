@@ -24,7 +24,6 @@ class RewardRequest extends FormRequest
         return [
             'name' => 'required|string',
             'quantity' => 'required|integer',
-            'discount' => 'required|integer',
             'redeem_points' => 'required|integer',
             'description' => 'required|string',
             'status' => 'nullable|string|in:active,inactive,sold_out'

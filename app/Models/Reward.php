@@ -11,7 +11,6 @@ class Reward extends BaseModel
      */
     protected $fillable = [
         'name',
-        'discount',
         'quantity',
         'redeem_points',
         'description',
