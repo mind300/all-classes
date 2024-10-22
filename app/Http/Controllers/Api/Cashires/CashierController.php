@@ -15,8 +15,6 @@ class CashierController extends Controller
     public function index()
     {
         $users = (new User)->setConnection('suppliers')->get();
-
-
         return contentResponse($users);
     }
 

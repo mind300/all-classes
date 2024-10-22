@@ -13,9 +13,15 @@ class Brand extends BaseModel
         'name',
     ];
 
-    // ====================== Relations =================== //
+    // ====================== Relations Mind =================== //
     public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    // ====================== Relations Suppliers =================== //
+    public function cashires()
+    {
+        return $this->setConnection('suppliers')->hasMany(User::class, 'brand_id');
     }
 }

@@ -31,7 +31,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return contentResponse($brand);
+        return contentResponse($brand->load('cashires'));
     }
 
     /**
