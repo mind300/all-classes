@@ -31,7 +31,7 @@ class RewardController extends Controller
      */
     public function show(Reward $reward)
     {
-        return messageResponse($reward);
+        return contentResponse($reward);
     }
 
     /**
