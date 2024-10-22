@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE suppliers.users ADD CONSTRAINT fk_brand_id FOREIGN KEY (brand_id) REFERENCES mind.brands(id) ON DELETE CASCADE');
+        // DB::statement('ALTER TABLE suppliers.users ADD CONSTRAINT fk_brand_id FOREIGN KEY (brand_id) REFERENCES mind.brands(id) ON DELETE CASCADE');
     }
 
     /**
@@ -33,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('ALTER TABLE suppliers.users DROP FOREIGN KEY fk_brand_id');
+        // DB::statement('ALTER TABLE suppliers.users DROP FOREIGN KEY fk_brand_id');
         Schema::dropIfExists('users');
     }
 };

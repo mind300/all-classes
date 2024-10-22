@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE community_1.offer_uses ADD CONSTRAINT fk_offer_id FOREIGN KEY (offer_id) REFERENCES mind.offers(id) ON DELETE CASCADE');
+        // DB::statement('ALTER TABLE community_1.offer_uses ADD CONSTRAINT fk_offer_id FOREIGN KEY (offer_id) REFERENCES mind.offers(id) ON DELETE CASCADE');
     }
 
     /**
@@ -28,7 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('ALTER TABLE community_1.offer_uses DROP FOREIGN KEY fk_offer_id');
+        // DB::statement('ALTER TABLE community_1.offer_uses DROP FOREIGN KEY fk_offer_id');
         Schema::connection('community_1')->dropIfExists('offer_uses');
     }
 };
