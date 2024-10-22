@@ -17,11 +17,19 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('mobile_number');
+            $table->boolean('mobile_number_view')->default(true);
             $table->date('date_of_birth');
+            $table->boolean('date_of_birth_view')->default(true);
             $table->string('location')->nullable();
+            $table->boolean('location_view')->default(true);
+            $table->string('job')->nullable();
+            $table->boolean('job_view')->default(true);
+            $table->string('bio')->nullable();
+            $table->string('following_number')->nullable();
+            $table->string('followers_number')->nullable();
 
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }

@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offers', function (Blueprint $table) {
+        Schema::create('rewards', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
-            $table->longText('brand_info');
-            $table->string('title');
-            $table->integer('discount');
-            $table->string('qr_code');
+            $table->longText('name');
+            $table->integer('quantity')->default(1);
+            $table->integer('discount')->default(0);
+            $table->integer('redeem_points');
             $table->string('description');
+            $table->enum('status', ['active', 'inactive', 'sold_out'])->default('active');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('communities');
+        Schema::dropIfExists('rewards');
     }
 };

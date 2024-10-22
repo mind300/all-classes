@@ -25,8 +25,7 @@ class OfferRequest extends FormRequest
             'category' => 'required|string',
             'brand_info' => 'required|string',
             'title' => 'required|string',
-            'price_before' => 'required|numeric',
-            'price_after' => 'required|numeric',
+            'discount' => 'required|integer',
             'description' => 'required|string',
             'brand_id' => 'required|exists:brands,id',
         ];

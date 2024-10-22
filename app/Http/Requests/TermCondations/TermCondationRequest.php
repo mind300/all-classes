@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Rewards;
+namespace App\Http\Requests\TermCondations;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RewardRequest extends FormRequest
+class TermCondationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,8 @@ class RewardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'quantity' => 'required|integer',
-            'discount' => 'required|integer',
-            'redeem_points' => 'required|integer',
-            'description' => 'required|string',
-            'status' => 'nullable|string|in:active,inactive,sold_out'
+            'title' => 'required|string',
+            'details' => 'required|string'
         ];
     }
 }

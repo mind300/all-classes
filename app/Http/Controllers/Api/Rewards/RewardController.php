@@ -49,6 +49,6 @@ class RewardController extends Controller
     public function destroy(Reward $reward)
     {
         $reward->forceDelete();
-        return messageResponse($reward);
+        return messageResponse();
     }
 }

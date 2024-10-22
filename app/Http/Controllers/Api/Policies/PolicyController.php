@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\Policies;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Policies\PolicyRequest;
+use App\Models\Policy;
 
 class PolicyController extends Controller
 {
@@ -12,54 +13,42 @@ class PolicyController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $policies = Policy::get();
+        return contentResponse($policies);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PolicyRequest $request)
     {
-        //
+        $policy = Policy::create($request->validated());
+        return messageResponse();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Policy $policy)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return contentResponse($policy);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PolicyRequest $request, Policy $policy)
     {
-        //
+        $policy->update($request->validated());
+        return messageResponse();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Policy $policy)
     {
-        //
+        $policy->forceDelete();
+        return messageResponse();
     }
 }

@@ -94,12 +94,12 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('charities/{charity}', 'Charities\CharityController@update')->name('charities.update');
 
         // Policies
-        Route::apiResource('policies', 'Charities\CharityController');
+        Route::apiResource('policies', 'Policies\PolicyController');
 
         // Terms & Condations
-        Route::apiResource('terms', 'Charities\CharityController');
+        Route::apiResource('termsCondations', 'TermCondations\TermCondationController');
 
         // About
-        Route::apiResource('abouts', 'Charities\CharityController');
+        Route::apiResource('abouts', 'Abouts\AboutController');
     });
 });

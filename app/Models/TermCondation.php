@@ -11,6 +11,6 @@ class TermCondation extends BaseModel
      */
     protected $fillable = [
         'title',
-        'description'
+        'details'
     ];
 }

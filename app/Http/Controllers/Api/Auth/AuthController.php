@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 // Models
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -31,7 +30,6 @@ class AuthController extends Controller
         if (!$token) {
             return messageResponse('Email or Password incorrect.', false, 401);
         }
-
         return authResponse($token, 'Login Successfully');
     }
 
@@ -39,11 +37,13 @@ class AuthController extends Controller
     // Get a JWT via given registred.
     public function register(RegisterRequest $request)
     {
+        $database = $request->header('Database-App');
+
         $user = User::create($request->validated());
         if (!$user) {
             return messageResponse('failed', false, 500);
         }
-        $token = auth()->login($user);
+        $token = auth()->claims(['database' => $database])->login($user);
         return authResponse($token, 'Login Successfully');
     }
 

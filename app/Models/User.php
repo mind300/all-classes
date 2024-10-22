@@ -87,4 +87,14 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
     {
         return $this->hasOne(Member::class, 'user_id');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(job::class, 'user_id');
+    }
+
+    public function buy_sells()
+    {
+        return $this->hasMany(BuySell::class, 'user_id');
+    }
 }
