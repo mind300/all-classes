@@ -7,6 +7,7 @@ if (!function_exists('authResponse')) {
         return response()->json([
             'user_id' => auth_user_id(),
             'user_id_encrypt' => encrypt(auth_user_id()),
+            'permssions' => auth_user()->permissions->pluck('name'),
             'token' => $token,
             'message' => $message,
             'status' => $status,
