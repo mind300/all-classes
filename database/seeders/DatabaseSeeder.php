@@ -13,9 +13,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(LaratrustSeeder::class);
 
-        // \App\Models\User::create([
-        //     'email' => 'Khaledmoussa202@gmail.com',
-        //     'password' => '24001091Km',
-        // ]);
+        \App\Models\User::create([
+            'email' => 'antonabdalla300@gmail.com',
+            'password' => '12345test',
+        ]);
+        \App\Models\User::create([
+            'email' => 'ahmaasabry22@gmail.com',
+            'password' => '12345test',
+        ]);
     }
 }

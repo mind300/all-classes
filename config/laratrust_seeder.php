@@ -22,6 +22,7 @@ return [
             'admins' => true,
             'terms-and-conditions' => true,
             'privacy-policy' => true,
+            'memebrs' => true,
             'about' => true,
             'rewards' => true,
         ],
