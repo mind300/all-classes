@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\Abouts;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Abouts\AboutRequest;
+use App\Models\About;
 
 class AboutController extends Controller
 {
@@ -12,54 +13,42 @@ class AboutController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $abouts = About::get();
+        return contentResponse($abouts);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AboutRequest $request)
     {
-        //
+        $abouts = About::create($request->validated());
+        return messageResponse();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(About $about)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return contentResponse($about);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AboutRequest $request, About $about)
     {
-        //
+        $about->update($request->validated());
+        return messageResponse();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(About $about)
     {
-        //
+        $about->forceDelete();
+        return messageResponse();
     }
 }

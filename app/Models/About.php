@@ -9,5 +9,8 @@ class About extends BaseModel
      *
      * @var array<int, string>
      */
-    protected $fillable = [''];
+    protected $fillable = [
+        'title',
+        'description'
+    ];
 }
