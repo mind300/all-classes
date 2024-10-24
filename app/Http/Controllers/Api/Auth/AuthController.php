@@ -86,6 +86,13 @@ class AuthController extends Controller
         return $status ? messageResponse() : messageResponse($status, false, 403);
     }
 
+    // Check Token Reset
+    public function permissions()
+    {
+        $permssions = auth_user()->permissions->pluck('name');
+        return contentResponse($permssions);
+    }
+
     // Refresh a token.
     public function refresh()
     {
