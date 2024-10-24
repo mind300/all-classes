@@ -23,7 +23,7 @@ class AboutRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'details' => 'required|string'
+            'description' => 'required|string'
         ];
     }
 }
