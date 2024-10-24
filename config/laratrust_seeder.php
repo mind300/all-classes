@@ -23,6 +23,7 @@ return [
             'terms-and-conditions' => true,
             'privacy-policy' => true,
             'about' => true,
+            'rewards' => true,
         ],
 
         // Admin
