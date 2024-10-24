@@ -11,20 +11,18 @@ return [
      */
     'truncate_tables' => true,
 
-    'roles_structure' => [  
+    'roles_structure' => [
         // Super Admin
         'superadmin' => [
-            'home' => true,
-            'applications' => true,
-            'members' => true,
-            'admins' => true,
             'news' => true,
             'events' => true,
-            'calendar' => true,
-            'history' => true,
+            'buy-and-sell' => true,
             'jobs' => true,
-            'buy&sell' => true,
-            'chatRoom' => true,
+            'forms' => true,
+            'admins' => true,
+            'terms-and-conditions' => true,
+            'privacy-policy' => true,
+            'about' => true,
         ],
 
         // Admin
