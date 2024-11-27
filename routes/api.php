@@ -193,3 +193,4 @@ Route::group(['middleware' => ['api']], function () {
 });
 
 Route::resource('chats', 'Chats\ChatController');
+Route::post('chats/create', 'Chats\ChatController')->name('chats.create');
