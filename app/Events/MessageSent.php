@@ -4,20 +4,20 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Laravel\Reverb\Protocols\Pusher\Channels\Channel as ChannelsChannel;
 
 class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $message;
+
     /**
      * Create a new event instance.
      */
-    public function __construct(public $message)
+    public function __construct($message)
     {
         $this->message = $message;
     }
@@ -25,17 +25,17 @@ class MessageSent implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Illuminate\Broadcasting\Channel
+     * @return \Illuminate\Broadcasting\Channel
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('chat.' . $this->message->chat_id);
+        return new Channel('chat.' . $this->message->chat_id); // Ensures correct chat channel
     }
 
     /**
-     * Get the channels the event should broadcast on.
+     * Customize the data broadcasted.
      *
-     * @return Illuminate\Broadcasting\Channel
+     * @return array
      */
     public function broadcastWith()
     {
