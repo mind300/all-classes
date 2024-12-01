@@ -114,6 +114,9 @@ Route::group(['middleware' => ['api']], function () {
 
         // News
         Route::apiResource('news', 'News\NewsController');
+        Route::post('news/{news}', 'News\NewsController@update')->name('news.update');
+
+        // News / Likes
         Route::get('news/like/{news}', 'News\NewsController@likeOrUnlike')->name('news.likeOrUnlike');
 
         // News / Comments
@@ -173,6 +176,8 @@ Route::group(['middleware' => ['api']], function () {
         Route::apiResource('invite/friends', 'InviteFriends\InviteFriendController');
 
         // Chats
+        Route::resource('chats', 'Chats\ChatController');
+        Route::post('chats/create', 'Chats\ChatController@create')->name('chats.create');
     });
 
     /*
@@ -191,6 +196,3 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('charities/{charity}', 'Charities\CharityController@update')->name('charities.update');
     });
 });
-
-Route::resource('chats', 'Chats\ChatController');
-Route::post('chats/create', 'Chats\ChatController@create')->name('chats.create');

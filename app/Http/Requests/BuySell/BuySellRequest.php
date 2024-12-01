@@ -22,7 +22,7 @@ class BuySellRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'media' => 'required|image',
+            'media' => 'nullable|image',
             'title' => 'required|string',
             'price_before' => 'required|numeric',
             'price_after' => 'required|numeric',

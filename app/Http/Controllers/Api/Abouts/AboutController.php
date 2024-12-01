@@ -22,7 +22,10 @@ class AboutController extends Controller
      */
     public function store(AboutRequest $request)
     {
-        $abouts = About::create($request->validated());
+        $about = About::create($request->validated());
+        if ($request->hasFile('media')) {
+            $about->addMediaFromRequest('media')->toMediaCollection('about');
+        }
         return messageResponse();
     }
 
@@ -40,6 +43,9 @@ class AboutController extends Controller
     public function update(AboutRequest $request, About $about)
     {
         $about->update($request->validated());
+        if ($request->hasFile('media')) {
+            $about->addMediaFromRequest('media')->toMediaCollection('about');
+        }
         return messageResponse();
     }
 

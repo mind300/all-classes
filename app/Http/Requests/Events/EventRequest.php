@@ -22,7 +22,7 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'media' => 'required|image',
+            'media' => 'nullable|image',
             'title' => 'required|string',
             'date' => 'required|date_format:Y-m-d',
             'time' => 'required|date_format:H:i',

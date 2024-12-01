@@ -13,8 +13,8 @@ class BuySellController extends Controller
      */
     public function index()
     {
-        $buyAndSells = BuySell::with('user')->paginate(10);
-        return contentResponse($buyAndSells);
+        $buysell = BuySell::with('user')->paginate(10);
+        return contentResponse($buysell);
     }
 
     /**
@@ -22,9 +22,12 @@ class BuySellController extends Controller
      */
     public function store(BuySellRequest $request)
     {
-        $buyAnSell = BuySell::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
+        $buysell = BuySell::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
+        if ($request->hasFile('media')) {
+            $buysell->addMediaFromRequest('media')->toMediaCollection('buy_sell');
+        }
         point_system('buy_sell');
-        return contentResponse($buyAnSell);
+        return contentResponse($buysell);
     }
 
     /**
@@ -41,6 +44,9 @@ class BuySellController extends Controller
     public function update(BuySellRequest $request, BuySell $buysell)
     {
         $buysell->update($request->validated());
+        if ($request->hasFile('media')) {
+            $buysell->addMediaFromRequest('media')->toMediaCollection('buysell');
+        }
         return messageResponse();
     }
 

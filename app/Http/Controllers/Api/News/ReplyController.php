@@ -15,7 +15,7 @@ class ReplyController extends Controller
      */
     public function store(ReplyRequest $request)
     {
-        $reply = Reply::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
+        $reply = Reply::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
         return messageResponse();
     }
 

@@ -22,6 +22,7 @@ class CharityRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => 'nullable|image',
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',

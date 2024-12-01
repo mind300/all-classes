@@ -23,6 +23,7 @@ class BrandRequest extends FormRequest
     {
         $user_id = $this->route('brand.supplier.id');
         return [
+            'media' => 'nullable|image',
             'name' => 'required|string',
             'email' => 'required|email:filter|unique:suppliers.users,email,' . $user_id,
         ];

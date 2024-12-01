@@ -22,7 +22,10 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
-        $event = Event::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
+        $event = Event::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
+        if ($request->hasFile('media')) {
+            $event->addMediaFromRequest('media')->toMediaCollection('event');
+        }
         return messageResponse();
     }
 
@@ -40,6 +43,9 @@ class EventController extends Controller
     public function update(EventRequest $request, Event $event)
     {
         $event->update($request->validated());
+        if ($request->hasFile('media')) {
+            $event->addMediaFromRequest('media')->toMediaCollection('event');
+        }
         return messageResponse();
     }
 

@@ -22,6 +22,7 @@ class NewsRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'media' => 'nullable|image',
             'caption' => 'required|string',
         ];
     }

@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Api\News;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\News\CommentRequest;
 use App\Http\Requests\News\NewsRequest;
-use App\Http\Requests\News\ReplyRequest;
-
-use App\Models\Comment;
 use App\Models\News;
-use App\Models\Reply;
 
 class NewsController extends Controller
 {
@@ -28,7 +23,10 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-        $news = News::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
+        $news = News::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
+        if ($request->hasFile('media')) {
+            $news->addMediaFromRequest('media')->toMediaCollection('news');
+        }
         return messageResponse();
     }
 
@@ -46,6 +44,9 @@ class NewsController extends Controller
     public function update(NewsRequest $request, News $news)
     {
         $news->update($request->validated());
+        if ($request->hasFile('media')) {
+            $news->addMediaFromRequest('media')->toMediaCollection('news');
+        }
         return messageResponse();
     }
 
@@ -63,7 +64,7 @@ class NewsController extends Controller
      */
     public function likeOrUnlike(News $news)
     {
-        $like = $news->likes()->firstWhere('user_id', auth()->id());
+        $like = $news->likes()->firstWhere('user_id', auth_user_id());
 
         if ($like) {
             $news->decrement('likes_count');

@@ -25,6 +25,9 @@ class BrandController extends Controller
     {
         $brand = Brand::create($request->validated());
         $supplier = (new User)->setConnection('suppliers')->create(array_merge($request->safe()->only('email'), ['brand_id' => $brand->id, 'password' => '12345@Test']));
+        if ($request->hasFile('media')) {
+            $brand->addMediaFromRequest('media')->toMediaCollection('brand');
+        }
         return messageResponse();
     }
 
@@ -43,6 +46,9 @@ class BrandController extends Controller
     {
         $brand->update($request->validated());
         $brand->supplier->update($request->safe()->only('email'));
+        if ($request->hasFile('media')) {
+            $brand->addMediaFromRequest('media')->toMediaCollection('brand');
+        }
         return messageResponse();
     }
 

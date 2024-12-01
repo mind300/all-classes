@@ -22,6 +22,7 @@ class OfferRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'media' => 'nullable|image',
             'category' => 'required|string',
             'brand_info' => 'required|string',
             'title' => 'required|string',

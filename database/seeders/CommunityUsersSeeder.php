@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Member;
 use App\Models\User;
-use App\Services\DatabaseSwitcher;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CommunityUsersSeeder extends Seeder

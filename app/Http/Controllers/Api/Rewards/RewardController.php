@@ -23,6 +23,9 @@ class RewardController extends Controller
     public function store(RewardRequest $request)
     {
         $reward = Reward::create($request->validated());
+        if ($request->hasFile('media')) {
+            $reward->addMediaFromRequest('media')->toMediaCollection('reward');
+        }
         return messageResponse();
     }
 
@@ -40,6 +43,9 @@ class RewardController extends Controller
     public function update(RewardRequest $request, Reward $reward)
     {
         $reward->update($request->validated());
+        if ($request->hasFile('media')) {
+            $reward->addMediaFromRequest('media')->toMediaCollection('reward');
+        }
         return messageResponse();
     }
 

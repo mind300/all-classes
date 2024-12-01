@@ -24,6 +24,7 @@ class MemberRequest extends FormRequest
         $user_id = $this->route('user.id');
 
         return [
+            'media' => 'nullable|image',
             'email' => $user_id ? 'required|email|unique:users,email,' . $user_id : 'nullable',
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',

@@ -24,6 +24,9 @@ class OfferController extends Controller
     {
         $qrCode = mt_rand(10000, 99999);
         $offer = Offer::create(array_merge($request->validated(), ['qr_code' => $qrCode]));
+        if ($request->hasFile('media')) {
+            $offer->addMediaFromRequest('media')->toMediaCollection('offer');
+        }
         return messageResponse();
     }
 
@@ -41,6 +44,9 @@ class OfferController extends Controller
     public function update(OfferRequest $request, Offer $offer)
     {
         $offer->update($request->validated());
+        if ($request->hasFile('media')) {
+            $offer->addMediaFromRequest('media')->toMediaCollection('offer');
+        }
         return messageResponse();
     }
 

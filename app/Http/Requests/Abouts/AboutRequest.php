@@ -22,6 +22,7 @@ class AboutRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'media' => 'nullable|image',
             'title' => 'required|string',
             'description' => 'required|string'
         ];

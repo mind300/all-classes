@@ -27,6 +27,9 @@ class CharityController extends Controller
         foreach ($request->validated('services') as $service) {
             $charity = Service::create(array_merge($service, ['charity_id' => $charity->id]));
         }
+        if ($request->hasFile('media')) {
+            $charity->addMediaFromRequest('media')->toMediaCollection('charity');
+        }
         return messageResponse();
     }
 
@@ -44,6 +47,9 @@ class CharityController extends Controller
     public function update(CharityRequest $request, Charity $charity)
     {
         $charity->update($request->validated());
+        if ($request->hasFile('media')) {
+            $charity->addMediaFromRequest('media')->toMediaCollection('charity');
+        }
         return messageResponse();
     }
 

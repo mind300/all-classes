@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        $comment = Comment::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
+        $comment = Comment::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
         return messageResponse();
     }
     
