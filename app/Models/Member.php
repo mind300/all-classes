@@ -26,24 +26,34 @@ class Member extends BaseModel
         'points'
     ];
 
-    // ====================== Relations =================== //
+    // ====================== Relations For Community =================== //
+    // Each member belong to user
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // Each member belong to many following
     public function following()
     {
         return $this->belongsToMany(Member::class, 'connections', 'followed_id', 'follower_id')->withPivot('is_followed');
     }
 
+    // Each member belong to many followers
     public function followers()
     {
         return $this->belongsToMany(Member::class, 'connections', 'follower_id', 'followed_id')->withPivot('is_followed');
     }
-    
+
+    // Each member has many answers
     public function answers()
     {
         return $this->hasMany(MemberAnswer::class,);
+    }
+
+    // Each member belong to many chats
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'chat_members');
     }
 }

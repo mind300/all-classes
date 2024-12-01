@@ -26,4 +26,11 @@ class JobAnnouncement extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('job')->singleFile();
+    }
 }

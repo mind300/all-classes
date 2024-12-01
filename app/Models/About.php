@@ -13,4 +13,11 @@ class About extends BaseModel
         'title',
         'description'
     ];
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('about')->singleFile();
+    }
 }

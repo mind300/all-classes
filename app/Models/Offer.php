@@ -29,4 +29,11 @@ class Offer extends BaseModel
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('offer')->singleFile();
+    }
 }

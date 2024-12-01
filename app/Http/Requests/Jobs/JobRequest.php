@@ -22,7 +22,7 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'media' => 'required|media',
+            'media' => 'required|image',
             'title' => 'required|string',
             'type' => 'required|string',
             'location' => 'nullable|string',

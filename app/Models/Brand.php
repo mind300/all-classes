@@ -5,7 +5,7 @@ namespace App\Models;
 class Brand extends BaseModel
 {
     protected $connection = 'mind';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,5 +32,12 @@ class Brand extends BaseModel
     public function supplier()
     {
         return $this->setConnection('suppliers')->hasOne(User::class, 'brand_id');
+    }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('brand')->singleFile();
     }
 }

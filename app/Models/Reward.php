@@ -17,5 +17,10 @@ class Reward extends BaseModel
         'status',
     ];
 
-    // ====================== Relations For Mind =================== //
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('reward')->singleFile();
+    }
 }

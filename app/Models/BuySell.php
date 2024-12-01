@@ -24,4 +24,11 @@ class BuySell extends BaseModel
     {
         return $this->belongsTo(User::class);
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('buy_sell')->singleFile();
+    }
 }

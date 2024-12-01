@@ -30,4 +30,11 @@ class Event extends BaseModel
     {
         return $this->hasMany(EventHistory::class, 'event_id');
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('event')->singleFile();
+    }
 }

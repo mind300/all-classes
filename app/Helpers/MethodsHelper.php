@@ -16,7 +16,7 @@ if (!function_exists('point_system')) {
             $user = User::find($id)?->member;
         }
 
-        $pointHistory = PointHistory::create(['user_id' => $user->id, 'point_system_id' => $points_system->id]);
+        $pointHistory = PointHistory::create(['user_id' => $user->id ?? $user->user_id, 'point_system_id' => $points_system->id]);
         return $user->increment('points', $points_system->points);
     }
 }

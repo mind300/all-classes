@@ -17,28 +17,27 @@ class ChatController extends Controller
      */
     public function index()
     {
-        // Fetch chats with members and last message
+        // Fetch chats with members and the last message
         $chats = Chat::whereHas('members', function ($query) {
-            $query->where('user_id', auth_user_id());
+            $query->where('member_id', auth_user_member_id());
         })->with([
             'members' => function ($query) {
-                $query->where('users.id', '!=', auth_user_id())->select('users.id', 'users.name');
+                $query->distinct()->select('members.id', 'members.first_name', 'members.last_name', 'members.mobile_number');
             },
             'messages' => function ($query) {
-                $query->latest()->first(); // Get the last message for each chat
+                $query->latest()->first();  // Get the latest message for each chat
             }
         ])->get();
 
-        // Transform the data for the response
         $chats = $chats->map(function ($chat) {
             return [
-                'id' => $chat->id,
+                'chat_id' => $chat->id,
                 'type' => $chat->type,
                 'name' => $chat->type === 'group' ? $chat->name : null,
                 'last_message' => $chat->messages->isNotEmpty() ? $chat->messages->first()->message : null,
-                'members' => $chat->members->map(function ($member) {
-                    return ['id' => $member->id, 'name' => $member->name,];
-                }),
+                'members' => $chat->members->filter(function ($member) {
+                    return $member->id !== auth_user_member_id();
+                })->unique('id')->values(), // Ensure uniqueness and re-index
             ];
         });
 
@@ -50,9 +49,23 @@ class ChatController extends Controller
      */
     public function create(ChatRequest $request)
     {
+        if ($request->type === 'personal') {
+            $existingChat = Chat::where('type', 'personal')->whereHas('members', function ($query) {
+                $query->where('member_id', auth_user_member_id());
+            })->whereHas('members', function ($query) use ($request) {
+                $query->where('member_id', $request->members[0]); // Assuming members array has one recipient
+            })->first();
+
+            // If a chat already exists, return it
+            if ($existingChat) {
+                return contentResponse(['chat_id' => $existingChat->id]);
+            }
+        }
+
+        // Create a new chat if none exists
         $chat = Chat::create($request->validated());
-        $chat->members()->attach($request->members); // Array of user IDs
-        return messageResponse();
+        $chat->members()->attach(array_merge($request->members, [auth_user_member_id()]));
+        return contentResponse(['chat_id' => $chat->id]);
     }
 
     /**
@@ -60,7 +73,7 @@ class ChatController extends Controller
      */
     public function store(MessageRequest $request)
     {
-        $message = Message::create(array_merge($request->validated(), ['user_id' => auth_user_id()]));
+        $message = Message::create(array_merge($request->validated(), ['member_id' => auth_user_member_id()]));
         broadcast(new MessageSent($message))->toOthers();
         return messageResponse();
     }
@@ -70,7 +83,7 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
-        return contentResponse($chat->load('messages.user'));
+        return contentResponse($chat->load('messages.members'));
     }
 
     /**

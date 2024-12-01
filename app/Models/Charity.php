@@ -29,4 +29,11 @@ class Charity extends BaseModel
     {
         return $this->hasMany(Service::class);
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('charity')->singleFile();
+    }
 }

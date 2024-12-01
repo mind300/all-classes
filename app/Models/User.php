@@ -8,7 +8,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Hash;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Spatie\MediaLibrary\HasMedia;
@@ -105,12 +104,6 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
         return $this->hasMany(Card::class, 'user_id');
     }
 
-    // Each user belong to many chats
-    public function chats()
-    {
-        return $this->belongsToMany(Chat::class, 'chat_members');
-    }
-
     // ======================== Relations For Suppliers ======================== //
     // Each supplier has one profile
     public function profile()
@@ -139,14 +132,5 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
     public function setConnectionIfRequired($connection)
     {
         $this->setConnection($connection);
-    }
-
-    public function logoutOtherDevices(string $currentPassword)
-    {
-        // Check if the provided password matches the user's current password
-        if (Hash::check($currentPassword, $this->password)) {
-            // Invalidate all other sessions for the user
-            $this->sessions()->delete(); // Assuming you have a sessions table or custom logic to handle this
-        }
     }
 }

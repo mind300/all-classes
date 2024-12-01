@@ -24,6 +24,14 @@ if (!function_exists('auth_user_member')) {
     }
 }
 
+// Get Auth User Member ID
+if (!function_exists('auth_user_member_id')) {
+    function auth_user_member_id()
+    {
+        return auth_user()->member->id;
+    }
+}
+
 // Get Auth Branch ID
 if (!function_exists('auth_branch_id')) {
     function auth_branch_id()

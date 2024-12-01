@@ -26,4 +26,11 @@ class News extends BaseModel
     {
         return $this->hasMany(Comment::class);
     }
+
+    // ====================== Media =================== //
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('news')->singleFile();
+    }
 }

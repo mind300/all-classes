@@ -11,7 +11,7 @@ class Message extends BaseModel
      */
     protected $fillable = [
         'chat_id',
-        'user_id',
+        'member_id',
         'message'
     ];
 
@@ -21,8 +21,8 @@ class Message extends BaseModel
         return $this->belongsTo(Chat::class);
     }
 
-    public function user()
+    public function members()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Member::class);
     }
 }

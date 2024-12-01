@@ -20,7 +20,7 @@ class Chat extends BaseModel
     // ====================== Relations For Community =================== //
     public function members()
     {
-        return $this->belongsToMany(User::class, 'chat_members');
+        return $this->belongsToMany(Member::class, 'chat_members');
     }
 
     public function messages()
