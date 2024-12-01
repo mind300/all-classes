@@ -18,6 +18,28 @@ class CommunityUsersSeeder extends Seeder
         // ============================================================== //
         // Adding a user with more details filled in
         User::create([
+            'email' => 'ahmaasabry22@gmail.com',
+            'password' => '12345@Test',
+        ]);
+
+        Member::create([
+            'first_name' => 'Ahmed',
+            'last_name' => 'Sabry',
+            'mobile_number' => '1234567890',
+            'mobile_number_view' => 1,
+            'date_of_birth' => '1990-01-01',
+            'date_of_birth_view' => 1,
+            'location' => 'New York',
+            'location_view' => 1,
+            'job' => 'Developer',
+            'job_view' => 1,
+            'bio' => 'This is a sample bio for John Doe.',
+            'following_number' => 0,
+            'followers_number' => 0,
+            'user_id' => 1
+        ]);
+        // ============================================================== //
+        User::create([
             'email' => 'antonabdalla3000@gmail.com',
             'password' => '12345@Test',
         ]);
@@ -36,8 +58,7 @@ class CommunityUsersSeeder extends Seeder
             'bio' => 'This is a sample bio for John Doe.',
             'following_number' => 0,
             'followers_number' => 0,
-            'user_id' => 1
+            'user_id' => 2
         ]);
-        // ============================================================== //
     }
 }
