@@ -114,7 +114,7 @@ Route::group(['middleware' => ['api']], function () {
 
         // News
         Route::apiResource('news', 'News\NewsController');
-        Route::post('news/{news}', 'News\NewsController@update')->name('news.update');
+        Route::post('news/{news}/update', 'News\NewsController@update')->name('news.update');
 
         // News / Likes
         Route::get('news/like/{news}', 'News\NewsController@likeOrUnlike')->name('news.likeOrUnlike');
