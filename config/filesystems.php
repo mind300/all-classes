@@ -40,7 +40,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -59,8 +59,10 @@ return [
 
         'media' => [
             'driver' => 'local',
-            'root'   => public_path('media'),
-            'url'    => env('APP_URL') . '/media',
+            'root'   => public_path('media'),  // Should match the folder where media files are stored
+            'url'    => env('APP_URL') . '/media',  // URL to access media
+            'visibility' => 'public',
+            'throw' => false,
         ],
     ],
 
