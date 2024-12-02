@@ -13,7 +13,7 @@ class BuySellController extends Controller
      */
     public function index()
     {
-        $buysell = BuySell::with(['media', 'user'])->paginate(10);
+        $buysell = BuySell::with(['media', 'user.member.media'])->paginate(10);
         return contentResponse($buysell);
     }
 
@@ -45,7 +45,7 @@ class BuySellController extends Controller
     {
         $buysell->update($request->validated());
         if ($request->hasFile('media')) {
-            $buysell->addMediaFromRequest('media')->toMediaCollection('buysell');
+            $buysell->addMediaFromRequest('media')->toMediaCollection('buy_sell');
         }
         return messageResponse();
     }
