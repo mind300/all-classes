@@ -17,7 +17,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $user = User::with('member')->where('status', 1)->paginate(10);
+        $user = User::with('member.media')->where('status', 1)->paginate(10);
         return contentResponse($user);
     }
 
@@ -50,7 +50,7 @@ class MemberController extends Controller
      */
     public function show(User $member)
     {
-        return contentResponse($member->load('member', 'buy_sells', 'jobs'));
+        return contentResponse($member->load('member.media', 'buy_sells', 'jobs'));
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class News extends BaseModel
 {
     /**

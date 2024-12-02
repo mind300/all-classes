@@ -22,7 +22,7 @@ class RewardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'media' => 'nullbale|image',
+            'media' => 'nullable|image',
             'name' => 'required|string',
             'quantity' => 'required|integer',
             'redeem_points' => 'required|integer',

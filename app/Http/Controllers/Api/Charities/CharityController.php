@@ -14,7 +14,7 @@ class CharityController extends Controller
      */
     public function index()
     {
-        $charities = Charity::with('services')->paginate(10);
+        $charities = Charity::with(['media','services'])->paginate(10);
         return contentResponse($charities);
     }
 
@@ -38,7 +38,7 @@ class CharityController extends Controller
      */
     public function show(Charity $charity)
     {
-        return contentResponse($charity);
+        return contentResponse($charity->load('media'));
     }
 
     /**

@@ -13,7 +13,7 @@ class BuySellController extends Controller
      */
     public function index()
     {
-        $buysell = BuySell::with('user')->paginate(10);
+        $buysell = BuySell::with(['media', 'user'])->paginate(10);
         return contentResponse($buysell);
     }
 
@@ -35,7 +35,7 @@ class BuySellController extends Controller
      */
     public function show(BuySell $buysell)
     {
-        return contentResponse($buysell);
+        return contentResponse($buysell->load('media'));
     }
 
     /**

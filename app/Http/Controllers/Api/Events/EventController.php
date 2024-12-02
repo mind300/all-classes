@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate(10);
+        $events = Event::with('media')->paginate(10);
         return contentResponse($events);
     }
 
@@ -34,7 +34,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return contentResponse($event);
+        return contentResponse($event->load('media'));
     }
 
     /**

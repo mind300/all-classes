@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::with('suppliers')->withCount('offers')->paginate(10);
+        $brands = Brand::with(['media', 'suppliers'])->withCount('offers')->paginate(10);
         return contentResponse($brands);
     }
 
@@ -36,7 +36,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return contentResponse($brand->load('suppliers'));
+        return contentResponse($brand->load(['media', 'suppliers']));
     }
 
     /**

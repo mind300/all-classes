@@ -13,7 +13,7 @@ class RewardController extends Controller
      */
     public function index()
     {
-        $rewards = Reward::paginate(10);
+        $rewards = Reward::with('media')->paginate(10);
         return contentResponse($rewards);
     }
 
@@ -34,7 +34,7 @@ class RewardController extends Controller
      */
     public function show(Reward $reward)
     {
-        return contentResponse($reward);
+        return contentResponse($reward->load('media'));
     }
 
     /**
