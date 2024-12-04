@@ -38,7 +38,7 @@ class ConnectionController extends Controller
             return $follow->pivot->follower_id === $auth->id;
         });
 
-        return contentResponse($connection->load('user.jobs', 'user.buy_sells')->setHidden(['following']));
+        return contentResponse($connection->load('user.jobs.media', 'user.buy_sells.media')->setHidden(['following']));
     }
 
 
