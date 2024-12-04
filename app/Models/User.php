@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia, LaratrustUse
     protected $fillable = [
         'name',
         'email',
-        'status',
+        'is_active',
         'password',
         'brand_id'
     ];

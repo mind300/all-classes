@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $database = $request->header('Database-App');
-        $token = auth()->claims(['database' => $database])->attempt(array_merge($request->validated(), ['status' => 1]));
+        $token = auth()->claims(['database' => $database])->attempt(array_merge($request->validated(), ['is_active' => 1]));
         if (!$token) {
             return messageResponse('Email or Password incorrect.', false, 401);
         }
