@@ -22,10 +22,10 @@ class HomeController extends Controller
         $response = [
             'news' => News::with('media', 'likes')->limit(1)->latest()->first(),
             'events' =>  Event::with('media')->limit(1)->latest()->first(),
-            'jobs' => JobAnnouncement::with('media')->limit(1)->latest()->first(),
+            'jobs' => JobAnnouncement::with(['media','user.member.media'])->limit(1)->latest()->first(),
             'charties' => Charity::with('media')->limit(1)->latest()->first(),
-            'offers' => Offer::with('media')->limit(1)->latest()->first(),
-            'buy_sells' => BuySell::with('media', 'user')->limit(1)->latest()->first(),
+            'offers' => Offer::with(['media','brand.media'])->limit(1)->latest()->first(),
+            'buy_sells' => BuySell::with('media', 'user.member.media')->limit(1)->latest()->first(),
         ];
         return contentResponse($response);
     }

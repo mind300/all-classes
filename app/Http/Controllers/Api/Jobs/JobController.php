@@ -13,7 +13,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobAnnouncements = JobAnnouncement::with(['media', 'user.media'])->paginate(10);
+        $jobAnnouncements = JobAnnouncement::with(['media', 'user.member.media'])->paginate(10);
         return contentResponse($jobAnnouncements);
     }
 
@@ -35,7 +35,7 @@ class JobController extends Controller
      */
     public function show(JobAnnouncement $job)
     {
-        return contentResponse($job->load(['media', 'user.media']));
+        return contentResponse($job->load(['media', 'user.member.media']));
     }
 
     /**

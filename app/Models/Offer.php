@@ -25,7 +25,7 @@ class Offer extends BaseModel
     ];
 
     // ====================== Relations For Mind =================== //
-    public function brands()
+    public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
