@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Services\DatabaseSwitcher;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
 class VerifyApp

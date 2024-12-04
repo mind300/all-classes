@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             // Login Validations
-            'email' => 'required|email:filter|exists:users,email',
+            'email' => 'required|email:filter',
             'password' => 'required|min:8'
         ];
     }

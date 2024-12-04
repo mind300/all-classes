@@ -185,7 +185,7 @@ Route::group(['middleware' => ['api']], function () {
     | Common -- API Routes
     |--------------------------------------------------------------------------
     */
-    Route::group(['middleware' => 'auth:mind,suppliers,community'], function () {
+    Route::group(['middleware' => 'auth:mind,community'], function () {
         // Offers
         Route::apiResource('offers', 'Offers\OfferController');
         Route::get('offers/category/{category}', 'Offers\OfferController@index')->name('offers.index');
