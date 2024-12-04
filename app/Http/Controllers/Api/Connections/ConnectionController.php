@@ -14,7 +14,7 @@ class ConnectionController extends Controller
     public function index()
     {
         $auth = auth_user()->member;
-        $members = Member::get();
+        $members = Member::with('media')->get();
 
         $connections = $members->transform(function ($member) use ($auth) {
             // Check if the authenticated user follows this member

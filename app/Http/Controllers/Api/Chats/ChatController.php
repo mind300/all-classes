@@ -38,6 +38,7 @@ class ChatController extends Controller
                 'members' => $chat->members->filter(function ($member) {
                     return $member->id !== auth_user_member_id();
                 })->unique('id')->values(), // Ensure uniqueness and re-index
+                'members' => $chat->members->load('media')
             ];
         });
 
