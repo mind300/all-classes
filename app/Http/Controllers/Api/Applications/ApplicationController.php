@@ -13,7 +13,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $user = User::with('member.answers')->where('status', 0)->paginate(10);
+        $user = User::with('member.answers')->where('is_active', 1)->paginate(10);
         return contentResponse($user);
     }
 
@@ -22,7 +22,7 @@ class ApplicationController extends Controller
      */
     public function store(ApplicationRequest $request)
     {
-        $approve = User::findOrFail($request->validated('user_id'))->update(['status' => 1]);
+        $approve = User::findOrFail($request->validated('user_id'))->update(['is_active' => 1]);
         return messageResponse();
     }
     

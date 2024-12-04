@@ -29,7 +29,7 @@ if (!function_exists('authResponse')) {
                 'role' => auth_user()->roles[0]->name,
                 'token' => $token,
                 'message' => $message,
-                'status' => $status,
+                'is_active' => auth_user()->status,
                 'expire_in' => auth()->factory()->getTTL(),
             ], $status);
         }
@@ -43,7 +43,7 @@ if (!function_exists('authResponse')) {
             'is_member' => $is_member,
             'token' => $token,
             'message' => $message,
-            'status' => $status,
+            'is_active' => auth_user()->status,
             'expire_in' => auth()->factory()->getTTL(),
         ], $status);
     }
