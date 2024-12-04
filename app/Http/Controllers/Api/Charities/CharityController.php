@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Charities\CharityRequest;
 use App\Models\Charity;
 use App\Models\Service;
-use Illuminate\Support\Facades\Config;
 
 class CharityController extends Controller
 {
@@ -24,7 +23,6 @@ class CharityController extends Controller
      */
     public function store(CharityRequest $request)
     {
-        dd(Config::get('database.default'));
         $charity = Charity::create($request->validated());
         foreach ($request->validated('services') as $service) {
             $charity = Service::create(array_merge($service, ['charity_id' => $charity->id]));
