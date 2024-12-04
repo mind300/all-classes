@@ -17,7 +17,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $user = User::with('member.media')->where('status', 1)->paginate(10);
+        $user = User::with('member.media')->where('is_active', 1)->paginate(10);
         return contentResponse($user);
     }
 
