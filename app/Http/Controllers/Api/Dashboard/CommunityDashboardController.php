@@ -11,9 +11,9 @@ class CommunityDashboardController extends Controller
     // All Counts For Community
     public function communityDashboard()
     {
-        $forms = User::with('member')->where('status', 0)->count();
+        $forms = User::with('member')->where('is_active', 0)->count();
         $admins = User::whereHasRole('admin')->count();
-        $members = User::where('status', 1)->count();
+        $forms = User::with('member')->where('is_active', 1)->count();
 
         $membersChart = User::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
             ->where('status', 1)
