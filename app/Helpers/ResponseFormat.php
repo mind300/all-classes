@@ -49,7 +49,6 @@ if (!function_exists('authResponse')) {
         // Commuity Response
         return response()->json([
             'user_id' => auth_user_id(),
-            'member_id' => auth_user_member_id(),
             'name' => auth_user()->name,
             'email' => auth_user()->email,
             'points' => $points,
