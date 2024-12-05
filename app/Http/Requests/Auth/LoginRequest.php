@@ -24,7 +24,8 @@ class LoginRequest extends FormRequest
         return [
             // Login Validations
             'email' => 'required|email:filter',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'device_token' => 'nullable|string',
         ];
     }
 }

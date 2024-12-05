@@ -10,7 +10,6 @@ if (!function_exists('authResponse')) {
         try {
             $is_member = auth_user()->member ? true : false;
             $points = auth_user_member()->points ?? 0;
-            
         } catch (QueryException $e) {
             if ($e->getCode() == '42S02') {
                 $is_member = false;
@@ -18,6 +17,19 @@ if (!function_exists('authResponse')) {
             } else {
                 throw $e;
             }
+        }
+
+        // Mind Response
+        if (Config::get('database.default') == 'mind') {
+            return response()->json([
+                'user_id' => auth_user_id(),
+                'name' => auth_user()->name,
+                'role' => auth_user()->roles[0]->name,
+                'token' => $token,
+                'message' => $message,
+                'is_active' => auth_user()->is_active,
+                'expire_in' => auth()->factory()->getTTL(),
+            ], $status);
         }
 
         // Suppliers Response
@@ -34,13 +46,15 @@ if (!function_exists('authResponse')) {
             ], $status);
         }
 
-        // Commuity & Mind Response
+        // Commuity Response
         return response()->json([
             'user_id' => auth_user_id(),
+            'member_id' => auth_user_member_id(),
             'name' => auth_user()->name,
             'email' => auth_user()->email,
             'points' => $points,
             'is_member' => $is_member,
+            'device_token' => auth_user()->device_token,
             'token' => $token,
             'message' => $message,
             'is_active' => auth_user()->is_active,

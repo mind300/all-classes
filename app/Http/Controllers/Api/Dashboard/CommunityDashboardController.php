@@ -13,7 +13,7 @@ class CommunityDashboardController extends Controller
     {
         $forms = User::with('member')->where('is_active', 0)->count();
         $admins = User::whereHasRole('admin')->count();
-        $forms = User::with('member')->where('is_active', 1)->count();
+        $members = User::with('member')->where('is_active', 1)->count();
 
         $membersChart = User::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
             ->where('status', 1)
