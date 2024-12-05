@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
             // Register Validations
             'email' => 'required|email:filter|unique:users,email',
             'password' => 'required|min:8|max:25|confirmed',
+            'device_token' => 'nullable|string'
         ];
     }
 }

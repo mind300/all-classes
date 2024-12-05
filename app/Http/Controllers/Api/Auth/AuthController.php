@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api\Auth;
-
 // Controller
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePasswordRequest;
@@ -11,7 +10,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPassword;
 use App\Http\Requests\Auth\TokenRequest;
-use App\Models\InviteFriend;
 // Illuminate
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
@@ -27,6 +25,7 @@ class AuthController extends Controller
     {
         $database = $request->header('Database-App');
         $token = auth()->claims(['database' => $database])->attempt(array_merge($request->safe()->only(['email', 'password']), ['is_active' => 1]));
+        $deviceToken = auth_user()->update(['device_token' => $request->validated('device_token')]);
         if (!$token) {
             return messageResponse('Email or Password incorrect.', false, 401);
         }

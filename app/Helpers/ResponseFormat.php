@@ -24,7 +24,7 @@ if (!function_exists('authResponse')) {
             return response()->json([
                 'user_id' => auth_user_id(),
                 'name' => auth_user()->name,
-                'role' => auth_user()->roles[0]->name,
+                'role' => auth_user()->roles[0]?->name ?? Null,
                 'token' => $token,
                 'message' => $message,
                 'is_active' => auth_user()->is_active,
