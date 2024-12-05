@@ -16,7 +16,7 @@ class CommunityDashboardController extends Controller
         $members = User::with('member')->where('is_active', 1)->count();
 
         $membersChart = User::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
-            ->where('status', 1)
+            ->where('is_active', 1)
             ->groupBy('year', 'month')
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
