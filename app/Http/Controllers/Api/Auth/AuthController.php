@@ -48,7 +48,7 @@ class AuthController extends Controller
             return contentResponse(auth_user()->load('profile'));
         }
         if (Config::get('database.default') == 'community_1') {
-            return contentResponse(auth()->user()->load('member', 'buy_sells', 'jobs'));
+            return contentResponse(auth()->user()->load('member.media', 'buy_sells', 'jobs'));
         }
         return contentResponse(auth()->user());
     }
