@@ -195,4 +195,6 @@ Route::group(['middleware' => ['api']], function () {
         Route::apiResource('charities', 'Charities\CharityController');
         Route::post('charities/{charity}', 'Charities\CharityController@update')->name('charities.update');
     });
+
+    Route::get('test', 'News\NewsController@test');
 });

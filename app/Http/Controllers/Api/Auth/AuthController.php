@@ -32,7 +32,6 @@ class AuthController extends Controller
         return authResponse($token, 'Login Successfully');
     }
 
-
     // Get a JWT via given registred.
     public function register(RegisterRequest $request)
     {

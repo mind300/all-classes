@@ -10,27 +10,29 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Notifications
+class NotificationSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $message;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public $member, public $message)
+    public function __construct($message, public $member_id)
     {
-        $this->member = $member;
         $this->message = $message;
+        $this->member_id = $member_id;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return \Illuminate\Broadcasting\Channel
      */
-    public function broadcastOn(): Channel
+    public function broadcastOn()
     {
-        return new PrivateChannel('notifications.' . $this->member->user_id); // Ensures correct chat channel
+        return new PrivateChannel('notification.' . $this->member_id); // Ensures correct chat channel
     }
 
     /**
@@ -42,9 +44,11 @@ class Notifications
     {
         return [
             'content' => [
-                'member' => $this->member->load('media.getUrl'),
+                'navigate' => 'chat',
+                'member_id' => $this->member_id,
+                'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
+                'media' => $this->message->member->getMedia('member')->first()->getUrl(),
                 'message' => $this->message->message,
-                'created_at' => $this->message->created_at,
             ]
         ];
     }

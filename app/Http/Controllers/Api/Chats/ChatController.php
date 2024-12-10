@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Chats;
 
 use App\Events\MessageSent;
+use App\Events\NotificationSent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chats\ChatRequest;
 use App\Http\Requests\Chats\MessageRequest;
@@ -76,6 +77,7 @@ class ChatController extends Controller
     {
         $message = Message::create(array_merge($request->validated(), ['member_id' => auth_user_member_id()]));
         broadcast(new MessageSent($message))->toOthers();
+        broadcast(new NotificationSent($message, $request->validated('member_id')))->toOthers();
         return messageResponse();
     }
 

@@ -5,25 +5,39 @@ namespace App\Http\Controllers\Api\Connections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Connections\ConnectionRequest;
 use App\Models\Member;
+use Illuminate\Http\Request;
 
 class ConnectionController extends Controller
 {
     /**
      * Display all members
      */
-    public function index()
+    public function index(Request $request)
     {
         $auth = auth_user()->member;
-        $members = Member::with('media')->get();
+
+        $query = Member::with('media', 'user');
+
+        if ($request->has('search') && $request->search) {
+            $searchTerm = $request->search;
+
+            // Filter by user attributes (name or email, for example)
+            $query->whereHas('user', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $members = $query->get();
 
         $connections = $members->transform(function ($member) use ($auth) {
-            // Check if the authenticated user follows this member
             $member->is_followed = $member->followers->contains(function ($follow) use ($auth) {
                 return $follow->pivot->followed_id === $auth->id;
             });
-            return  $member;
+            return $member;
         });
 
+        // Return the response, hiding the 'followers' field to prevent exposing sensitive data
         return contentResponse($connections->setHidden(['followers']));
     }
 

@@ -20,6 +20,6 @@ Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
 | Notifications -- Channels Routes
 |--------------------------------------------------------------------------
 */
-Broadcast::channel('notifications.{user_id}', function ($user, $chatId) {
-    return true; // Return true if the user is authorized
+Broadcast::channel('notification.{chatId}', function ($user, $chatId) {
+    return true;
 });

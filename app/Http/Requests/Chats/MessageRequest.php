@@ -23,6 +23,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'chat_id' => 'required|integer|exists:chats,id',
+            'member_id' => 'required|integer|exists:members,id',
             'message' => 'required|string'
         ];
     }
