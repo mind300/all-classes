@@ -41,7 +41,7 @@ class ChatController extends Controller
                     return $member->id !== auth_user_member_id();
                 })->unique('id')->values(), // Ensure uniqueness and re-index
                 'members' => $chat->members->load('media'),
-                'device_token' => $chat->messages->member->user->device_token
+                'device_token' => $chat->messages->member->user
             ];
         });
 
