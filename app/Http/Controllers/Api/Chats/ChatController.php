@@ -78,7 +78,7 @@ class ChatController extends Controller
     {
         $message = Message::create(array_merge($request->validated(), ['member_id' => auth_user_member_id()]));
         broadcast(new MessageSent($message))->toOthers();
-        broadcast(new NotificationSent($message, $request->validated('member_id')))->toOthers();
+        broadcast(new NotificationSent($message, $request->validated('user_id')))->toOthers();
         return messageResponse();
     }
 
