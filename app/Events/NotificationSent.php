@@ -24,6 +24,13 @@ class NotificationSent implements ShouldBroadcast
     {
         $this->message = $message;
         $this->user_id = $user_id;
+        
+        Notification::create([
+            'navigate' => 'chat',
+            'user_id'=>$this->user_id,
+            'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
+            'media' => $this->message->member->getMedia('member')->first()->getUrl(),
+        ]);
     }
 
     /**
@@ -43,12 +50,6 @@ class NotificationSent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        Notification::create([
-            'navigate' => 'chat',
-            'user_id'=>$this->user_id,
-            'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
-            'media' => $this->message->member->getMedia('member')->first()->getUrl(),
-        ]);
         return [
             'content' => [
                 'navigate' => 'chat',
