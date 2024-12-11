@@ -9,6 +9,7 @@ use App\Http\Requests\Chats\ChatRequest;
 use App\Http\Requests\Chats\MessageRequest;
 use App\Models\Chat;
 use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
