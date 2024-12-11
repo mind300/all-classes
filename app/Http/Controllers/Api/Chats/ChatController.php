@@ -24,7 +24,7 @@ class ChatController extends Controller
             $query->where('member_id', auth_user_member_id());
         })->with([
             'members' => function ($query) {
-                $query->distinct()->select('members.id', 'members.first_name', 'members.last_name', 'members.mobile_number');
+                $query->distinct()->select('members.id', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.user_id');
             },
             'messages' => function ($query) {
                 $query->latest()->first();  // Get the latest message for each chat
@@ -42,7 +42,6 @@ class ChatController extends Controller
                 })->unique('id')->values(), // Ensure uniqueness and re-index
                 'members' => $chat->members->load('media'),
                 'members' => $chat->members->user->device_token
-
             ];
         });
 
@@ -89,7 +88,7 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
-        return contentResponse($chat->load('messages.members'));
+        return contentResponse($chat->load('messages.member'));
     }
 
     /**
