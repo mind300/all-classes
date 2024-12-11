@@ -113,4 +113,9 @@ class ChatController extends Controller
     {
         //
     }
+
+    public function notification(){
+        $notifications = Notification::where('user_id', auth_user_id())->get();
+        return contentResponse($notifications);
+    }
 }

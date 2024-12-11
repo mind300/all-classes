@@ -178,6 +178,9 @@ Route::group(['middleware' => ['api']], function () {
         // Chats
         Route::resource('chats', 'Chats\ChatController');
         Route::post('chats/create', 'Chats\ChatController@create')->name('chats.create');
+
+        // Notifications
+        Route::get('chat/notifications', 'Chats\ChatController@notification')->name('chats.notification');
     });
 
     /*
