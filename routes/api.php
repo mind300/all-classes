@@ -93,6 +93,7 @@ Route::group(['middleware' => ['api']], function () {
         // Dashboard Commmunity
         Route::get('dashboard/community', 'Dashboard\CommunityDashboardController@communityDashboard');
 
+
         // Home
         Route::get('home', 'Home\HomeController@index');
 
@@ -180,9 +181,12 @@ Route::group(['middleware' => ['api']], function () {
 
         // Chats
         Route::apiResource('rooms', 'Rooms\RoomController');
-        
-        // Posts
+
+        // Chats
         Route::apiResource('posts', 'Posts\PostController');
+
+        // Notifications
+        Route::get('chat/notifications', 'Chats\ChatController@notification')->name('chats.notification');
     });
 
     /*

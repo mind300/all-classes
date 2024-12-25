@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Notification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -19,10 +20,17 @@ class NotificationSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct($message, public $member_id)
+    public function __construct($message, public $user_id)
     {
         $this->message = $message;
-        $this->member_id = $member_id;
+        $this->user_id = $user_id;
+        
+        Notification::create([
+            'navigate' => 'chat',
+            'user_id'=>$this->user_id,
+            'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
+            'media' => $this->message->member->getMedia('member')->first()->getUrl(),
+        ]);
     }
 
     /**
@@ -32,7 +40,7 @@ class NotificationSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('notification.' . $this->member_id); // Ensures correct chat channel
+        return new PrivateChannel('notification.' . $this->user_id); // Ensures correct chat channel
     }
 
     /**
@@ -45,10 +53,9 @@ class NotificationSent implements ShouldBroadcast
         return [
             'content' => [
                 'navigate' => 'chat',
-                'member_id' => $this->member_id,
+                'user_id' => $this->user_id,
                 'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
                 'media' => $this->message->member->getMedia('member')->first()->getUrl(),
-                'message' => $this->message->message,
             ]
         ];
     }

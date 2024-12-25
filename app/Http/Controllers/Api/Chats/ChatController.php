@@ -9,6 +9,7 @@ use App\Http\Requests\Chats\ChatRequest;
 use App\Http\Requests\Chats\MessageRequest;
 use App\Models\Chat;
 use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -23,7 +24,7 @@ class ChatController extends Controller
             $query->where('member_id', auth_user_member_id());
         })->with([
             'members' => function ($query) {
-                $query->distinct()->select('members.id', 'members.first_name', 'members.last_name', 'members.mobile_number');
+                $query->distinct()->select('members.id', 'members.first_name', 'members.last_name', 'members.mobile_number', 'members.user_id');
             },
             'messages' => function ($query) {
                 $query->latest()->first();  // Get the latest message for each chat
@@ -39,7 +40,7 @@ class ChatController extends Controller
                 'members' => $chat->members->filter(function ($member) {
                     return $member->id !== auth_user_member_id();
                 })->unique('id')->values(), // Ensure uniqueness and re-index
-                'members' => $chat->members->load('media')
+                'members' => $chat->members->load('media'),
             ];
         });
 
@@ -77,7 +78,7 @@ class ChatController extends Controller
     {
         $message = Message::create(array_merge($request->validated(), ['member_id' => auth_user_member_id()]));
         broadcast(new MessageSent($message))->toOthers();
-        broadcast(new NotificationSent($message, $request->validated('member_id')))->toOthers();
+        broadcast(new NotificationSent($message, $request->validated('user_id')))->toOthers();
         return messageResponse();
     }
 
@@ -86,7 +87,7 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
-        return contentResponse($chat->load('messages.members'));
+        return contentResponse($chat->load('messages.member'));
     }
 
     /**
@@ -111,5 +112,10 @@ class ChatController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function notification(){
+        $notifications = Notification::where('user_id', auth_user_id())->get();
+        return contentResponse($notifications);
     }
 }
