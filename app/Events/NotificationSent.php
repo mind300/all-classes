@@ -29,7 +29,7 @@ class NotificationSent implements ShouldBroadcast
             'navigate' => 'chat',
             'user_id'=>$this->user_id,
             'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
-            'media' => $this->message->member->getMedia('member')->first()->getUrl(),
+            'media' => $this->message->member->getMedia('member')?->first()?->getUrl(),
         ]);
     }
 
@@ -55,7 +55,7 @@ class NotificationSent implements ShouldBroadcast
                 'navigate' => 'chat',
                 'user_id' => $this->user_id,
                 'name' => $this->message->member->first_name . ' ' . $this->message->member->last_name,
-                'media' => $this->message->member->getMedia('member')->first()->getUrl(),
+                'media' => $this->message->member->getMedia('member')?->first()?->getUrl(),
             ]
         ];
     }
