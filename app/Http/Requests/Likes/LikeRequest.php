@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\News;
+namespace App\Http\Requests\Likes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class LikeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment' => 'required|string',
-            'news_id' => 'required|exists:news,id'
+            'news_id' => 'required_without:post_id|integer|exists:news,id',
+            'post_id' => 'required_without:news_id|integer|exists:posts,id',
         ];
     }
 }

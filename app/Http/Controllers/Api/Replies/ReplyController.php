@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\News;
+namespace App\Http\Controllers\Api\Replies;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\News\ReplyRequest;
+use App\Http\Requests\Replies\ReplyRequest;
 use App\Models\Reply;
-use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {

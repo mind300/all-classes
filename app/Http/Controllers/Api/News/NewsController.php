@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Api\News;
 
-use App\Events\Notifications;
-use App\Events\NotificationSent;
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\News\NewsRequest;
 use App\Models\News;
-use Illuminate\Support\Facades\Notification;
 
 class NewsController extends Controller
 {
@@ -79,10 +75,4 @@ class NewsController extends Controller
         }
         return messageResponse('User Like');
     }
-
-    // public function test()
-    // {
-    //     broadcast(new NotificationSent('message'))->toOthers();
-    //     return messageResponse();
-    // }
 }

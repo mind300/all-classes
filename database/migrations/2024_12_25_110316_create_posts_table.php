@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->longText('content');
+            $table->bigInteger('likes_count')->default(0);
+            $table->bigInteger('comment_count')->default(0);
             $table->foreignId('room_id')->constrained('rooms')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

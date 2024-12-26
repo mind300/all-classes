@@ -24,7 +24,6 @@ class PostRequest extends FormRequest
         return [
             //
             'media' => 'nullable|image',
-            'title' => 'required|string',
             'content' => 'required|string',
             'room_id' => 'required|integer|exists:rooms,id',
         ];

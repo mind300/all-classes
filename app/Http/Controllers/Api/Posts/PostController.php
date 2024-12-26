@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::with(['media', 'user', 'likes'])->latest()->paginate(10);
         return contentResponse($posts);
     }
 
@@ -22,7 +22,10 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = Post::create($request->validated());
+        $post = Post::create($request->validated() + ['user_id' => auth_user_id()]);
+        if ($request->hasFile('media')) {
+            $post->addMediaFromRequest('media')->toMediaCollection('posts');
+        }
         return messageResponse();
     }
 
@@ -50,5 +53,23 @@ class PostController extends Controller
     {
         $post->forceDelete();
         return messageResponse();
+    }
+
+    /**
+     * Make like for specific news.
+     */
+    public function likeOrUnlike(Post $post)
+    {
+        $like = $post->likes()->firstWhere('user_id', auth_user_id());
+
+        if ($like) {
+            $post->decrement('likes_count');
+            $like->forceDelete();
+            return messageResponse('User Unlike');
+        } else {
+            $post->likes()->create(['user_id' => auth_user_id()]); // Like if not already liked
+            $post->increment('likes_count');
+        }
+        return messageResponse('User Like');
     }
 }

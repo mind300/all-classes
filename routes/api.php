@@ -119,14 +119,6 @@ Route::group(['middleware' => ['api']], function () {
         // News / Likes
         Route::get('news/like/{news}', 'News\NewsController@likeOrUnlike')->name('news.likeOrUnlike');
 
-        // News / Comments
-        Route::apiResource('news/comment', 'News\CommentController');
-        Route::get('news/comment/{news_id}', 'News\CommentController@show')->name('comment.show');
-
-        // News / Comments / Replies
-        Route::apiResource('news/comment/reply', 'News\ReplyController');
-        Route::get('news/comment/reply/{comment_id}', 'News\ReplyController@show')->name('reply.show');
-
         // Events Histories
         Route::apiResource('event/history', 'Events\EventHistoryController');
 
@@ -182,11 +174,23 @@ Route::group(['middleware' => ['api']], function () {
         // Chats
         Route::apiResource('rooms', 'Rooms\RoomController');
 
-        // Chats
+        // Posts
         Route::apiResource('posts', 'Posts\PostController');
+        Route::post('posts/{post}', 'Posts\PostController@update')->name('posts.update');
+
+        // Posts/like
+        Route::get('posts/like/{post}', 'Posts\PostController@likeOrUnlike')->name('posts.likeOrUnlike');
 
         // Notifications
         Route::get('chat/notifications', 'Chats\ChatController@notification')->name('chats.notification');
+
+        // Comments
+        Route::apiResource('comments', 'Comments\CommentController');
+        Route::get('comments/{model_id}/{model_type}', 'Comments\CommentController@show')->name('comments.show');
+
+        // Comments / Replies
+        Route::apiResource('comment/reply', 'Replies\ReplyController');
+        Route::get('comment/reply/{comment_id}', 'Replies\ReplyController@show')->name('reply.show');
     });
 
     /*

@@ -27,7 +27,7 @@ class News extends BaseModel
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'model');
     }
 
     // ====================== Media =================== //

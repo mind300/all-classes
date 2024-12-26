@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\News;
+namespace App\Http\Requests\Replies;
 
 use Illuminate\Foundation\Http\FormRequest;
 

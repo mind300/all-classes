@@ -11,8 +11,9 @@ class Comment extends BaseModel
      */
     protected $fillable = [
         'comment',
-        'news_id',
         'user_id',
+        'model_id',
+        'model_type'
     ];
 
     // ====================== Relations For Community =================== //
