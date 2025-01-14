@@ -91,14 +91,6 @@ class ChatController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -114,7 +106,8 @@ class ChatController extends Controller
         //
     }
 
-    public function notification(){
+    public function notification()
+    {
         $notifications = Notification::where('user_id', auth_user_id())->get();
         return contentResponse($notifications);
     }
