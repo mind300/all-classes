@@ -30,7 +30,10 @@ class MemberController extends Controller
         $member->user()->associate(auth_user())->save();
         $user = User::find(auth_user_id())->update(['name' => "{$member->first_name} {$member->last_name}"]);
         if ($request->hasFile('media')) {
-            $member->addMediaFromRequest('media')->toMediaCollection('member');
+            $member->addMediaFromRequest('media')->toMediaCollection('profile');
+        }
+        if ($request->hasFile('cover')) {
+            $member->addMediaFromRequest('cover')->toMediaCollection('cover');
         }
         invite_friend();
         return messageResponse();
@@ -61,7 +64,10 @@ class MemberController extends Controller
         $member->update($request->validated());
         $member->user->update(array_merge($request->validated(), ['name' => "{$member->first_name} {$member->last_name}"]));
         if ($request->hasFile('media')) {
-            $member->addMediaFromRequest('media')->toMediaCollection('member');
+            $member->addMediaFromRequest('media')->toMediaCollection('profile');
+        }
+        if ($request->hasFile('cover')) {
+            $member->addMediaFromRequest('cover')->toMediaCollection('cover');
         }
         return messageResponse();
     }

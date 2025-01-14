@@ -56,4 +56,12 @@ class Member extends BaseModel
     {
         return $this->belongsToMany(Chat::class, 'chat_members');
     }
+
+    
+    // Spatie Media Library Collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('profile')->singleFile();
+        $this->addMediaCollection('cover')->singleFile();
+    }
 }
