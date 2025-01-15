@@ -28,7 +28,7 @@ class OfferFactory extends Factory
             'title' => $this->faker->sentence(),
             'discount' => $this->faker->numberBetween(5, 70), // Discount percentage
             'description' => $this->faker->paragraph(),
-            'qr_code' => $this->faker->uuid(), // Random UUID for QR code
+            'qr_code' => mt_rand(10000, 99999), // Random UUID for QR code
             'brand_id' => 1 // Assumes a Brand factory exists
         ];
     }
