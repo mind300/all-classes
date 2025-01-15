@@ -32,7 +32,7 @@ class ScanOfferController extends Controller
         $user = (new User)->setConnection($request->validated('community_name'))->firstWhere('email', $request->validated('user_email'));
         $scanOffer = ScanOffer::create(array_merge($request->validated(), ['user_name' => $user->name, 'user_email' => $user->email]));
         point_system('redeem_offer', false, $user->id, $request->validated('community_name'));
-        return contentResponse(['scan_offer_id', $scanOffer]);
+        return contentResponse(['scan_offer_id', $scanOffer->id]);
     }
 
     /**
