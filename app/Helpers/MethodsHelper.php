@@ -4,19 +4,31 @@ use App\Models\InviteFriend;
 use App\Models\PointHistory;
 use App\Models\PointSystem;
 use App\Models\User;
+use Illuminate\Support\Facades\Config;
 
 // Calculate Point Systems
 if (!function_exists('point_system')) {
-    function point_system($action, $isAuth = true, $id = null)
+    function point_system($action, $isAuth = true, $id = null, $community_name = null)
     {
         $points_system = PointSystem::firstWhere('action', $action);
-        $user = auth_user_member();
-
-        if (!$isAuth) {
-            $user = User::find($id)?->member;
+        $database = Config::get('database.default');
+        if ($database == 'suppliers') {
+            $user = (new User)->setConnection($community_name)->find($id);
+        } else {
+            if (!$isAuth) {
+                $user = User::find($id);
+            } else {
+                $user = auth_user_member();
+            }
         }
 
-        $pointHistory = PointHistory::create(['user_id' => $user->user_id, 'point_system_id' => $points_system->id]);
+        if (Config::get('database.default') == 'suppliers') {
+            $pointHistory = (new PointHistory)->setConnection($community_name)->create(['user_id' => $user->id, 'point_system_id' => $points_system->id]);
+            $user = $user->member;
+            return $user->increment('points', $points_system->points);
+        } else {
+            $pointHistory = PointHistory::create(['user_id' => $user->user_id, 'point_system_id' => $points_system->id]);
+        }
         return $user->increment('points', $points_system->points);
     }
 }
