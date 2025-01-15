@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         // Community Seeders
         $this->call(CommunityUsersSeeder::class);
         // Add Fileds For All Models
-        $news = News::factory()->make()->toArray();
-        $buyAndSells = BuySell::factory()->make()->toArray();
+        $news = News::factory()->create();
+        $buyAndSells = BuySell::factory()->create();
         $jobs = JobAnnouncement::factory()->create();
         $rewards = Reward::factory()->create();
         $events = Event::factory()->create();
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         // Mind Seeders
         $this->call(MindUsersSeeder::class);
         // Add Fileds For All Models
-        $offers = Offer::factory()->make()->toArray();
+        $offers = Offer::factory()->create();
         $charities = Charity::factory()->create();
 
         // Point System Actions Seeder

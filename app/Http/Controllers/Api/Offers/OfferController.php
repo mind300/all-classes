@@ -14,7 +14,8 @@ class OfferController extends Controller
     public function index($category = null)
     {
         $offers = $category != 'all' ? Offer::where('category', $category)->paginate(10) : Offer::paginate(10);
-        return contentResponse($offers->load(['media', 'brand.media']));
+        $offers->load(['media', 'brand.media']);
+        return contentResponse($offers);
     }
 
     /**

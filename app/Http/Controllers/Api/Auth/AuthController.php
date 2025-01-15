@@ -24,11 +24,12 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $database = $request->header('Database-App');
+
         $token = auth()->claims(['database' => $database])->attempt(array_merge($request->safe()->only(['email', 'password']), ['is_active' => 1]));
-        $deviceToken = auth_user()->update(['device_token' => $request->validated('device_token')]);
         if (!$token) {
             return messageResponse('Email or Password incorrect.', false, 401);
         }
+        $deviceToken = auth_user()->update(['device_token' => $request->validated('device_token')]);
         return authResponse($token, 'Login Successfully');
     }
 
