@@ -20,13 +20,13 @@ class SupplierUsersSeeder extends Seeder
         // ============================================================== //
         // Adding a user with more details filled in
         $user = User::create([
-            'email' => 'ahmaasabry22@gmail.com',
-            'password' => '12345@Test',
+            'email' => 'zara@gmail.com',
+            'password' => '12345test',
             'brand_id' => 1
         ]);
 
         Profile::create([
-            'name' => 'Ahmed Sabry',
+            'name' => 'Khaled Moussa',
             'mobile_number' => '01015571129',
             'job_id' => '1234567890',
             'user_id' => 1,

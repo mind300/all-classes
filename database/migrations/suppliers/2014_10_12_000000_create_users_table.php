@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('brand_id');
             $table->boolean('is_active')->default(true);
-
+            $table->string('device_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

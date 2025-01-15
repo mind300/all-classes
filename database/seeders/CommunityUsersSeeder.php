@@ -16,8 +16,9 @@ class CommunityUsersSeeder extends Seeder
         // ============================================================== //
         // Adding a user with more details filled in
         User::create([
+            'name' => 'Ahmed Sabry',
             'email' => 'ahmaasabry22@gmail.com',
-            'password' => '12345@Test',
+            'password' => '12345test',
         ]);
 
         Member::create([
@@ -38,12 +39,13 @@ class CommunityUsersSeeder extends Seeder
         ]);
         // ============================================================== //
         User::create([
+            'name' => 'Anton Abdallah',
             'email' => 'antonabdalla3000@gmail.com',
-            'password' => '12345@Test',
+            'password' => '12345test',
         ]);
 
         Member::create([
-            'first_name' => 'Antton',
+            'first_name' => 'Anton',
             'last_name' => 'Abdallah',
             'mobile_number' => '1234567890',
             'mobile_number_view' => 1,
