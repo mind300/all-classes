@@ -31,7 +31,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        return contentResponse($room->load('posts'));
+        return contentResponse($room->load('posts.media','posts.likes','posts.comments.user','posts.comments.replies.user'));
     }
 
     /**
