@@ -13,7 +13,7 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $abouts = About::get();
+        $abouts = About::with('media')->get();
         return contentResponse($abouts);
     }
 
@@ -34,7 +34,7 @@ class AboutController extends Controller
      */
     public function show(About $about)
     {
-        return contentResponse($about);
+        return contentResponse($about->load('media'));
     }
 
     /**
