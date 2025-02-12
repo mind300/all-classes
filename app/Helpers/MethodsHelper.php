@@ -10,18 +10,18 @@ use Illuminate\Support\Facades\Config;
 if (!function_exists('point_system')) {
     function point_system($action, $isAuth = true, $id = null, $community_name = null)
     {
-        $points_system = PointSystem::firstWhere('action', $action);
-        $database = Config::get('database.default');
-        if ($database == 'suppliers') {
-            $user = (new User)->setConnection($community_name)->find($id);
-        } else {
-            if (!$isAuth) {
-                $user = User::find($id);
+        if (auth_user()->hasRole('admin')) {
+            $points_system = PointSystem::firstWhere('action', $action);
+            $database = Config::get('database.default');
+            if ($database == 'suppliers') {
+                $user = (new User)->setConnection($community_name)->find($id);
             } else {
-                $user = auth_user_member();
+                if (!$isAuth) {
+                    $user = User::find($id);
+                } else {
+                    $user = auth_user_member();
+                }
             }
-        }
-        if($user->hasRole('user')){
             if (Config::get('database.default') == 'suppliers') {
                 $pointHistory = (new PointHistory)->setConnection($community_name)->create(['user_id' => $user->id, 'point_system_id' => $points_system->id]);
                 $user = $user->member;
