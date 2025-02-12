@@ -43,6 +43,9 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $post->update($request->validated());
+        if ($request->hasFile('media')) {
+            $post->addMediaFromRequest('media')->toMediaCollection('posts');
+        }
         return messageResponse();
     }
 
