@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 if (!function_exists('point_system')) {
     function point_system($action, $isAuth = true, $id = null, $community_name = null)
     {
-        if (auth_user()->hasRole('admin')) {
+        if (auth_user()->hasRole('user')) {
             $points_system = PointSystem::firstWhere('action', $action);
             $database = Config::get('database.default');
             if ($database == 'suppliers') {
