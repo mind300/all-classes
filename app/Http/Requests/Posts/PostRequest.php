@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
             //
             'media' => 'nullable|image',
             'content' => 'required|string',
-            // 'room_id' => 'required|integer|exists:rooms,id',
+            'room_id' => 'required|integer|exists:rooms,id',
         ];
     }
 }

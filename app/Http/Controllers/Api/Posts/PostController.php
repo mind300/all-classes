@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['media', 'user', 'likes'])->latest()->paginate(10);
+        $posts = Post::with(['media', 'user.media', 'likes', 'last_comment'])->latest()->paginate(10);
         return contentResponse($posts);
     }
 

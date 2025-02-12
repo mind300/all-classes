@@ -40,6 +40,11 @@ class Post extends BaseModel
     {
         return $this->morphMany(Comment::class, 'model');
     }
+
+    public function last_comment()
+    {
+        return $this->morphOne(Comment::class, 'model')->latest();
+    }
     // ====================== Media =================== //
     // Spatie Media Library Collections
     public function registerMediaCollections(): void
