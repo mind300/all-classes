@@ -11,6 +11,7 @@ class Room extends BaseModel
      */
     protected $fillable = [
         'name',
+        'description',
         'members_count',
         'user_id',
     ];

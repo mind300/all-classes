@@ -21,15 +21,16 @@ if (!function_exists('point_system')) {
                 $user = auth_user_member();
             }
         }
-
-        if (Config::get('database.default') == 'suppliers') {
-            $pointHistory = (new PointHistory)->setConnection($community_name)->create(['user_id' => $user->id, 'point_system_id' => $points_system->id]);
-            $user = $user->member;
+        if($user->hasRole('user')){
+            if (Config::get('database.default') == 'suppliers') {
+                $pointHistory = (new PointHistory)->setConnection($community_name)->create(['user_id' => $user->id, 'point_system_id' => $points_system->id]);
+                $user = $user->member;
+                return $user->increment('points', $points_system->points);
+            } else {
+                $pointHistory = PointHistory::create(['user_id' => $user->user_id, 'point_system_id' => $points_system->id]);
+            }
             return $user->increment('points', $points_system->points);
-        } else {
-            $pointHistory = PointHistory::create(['user_id' => $user->user_id, 'point_system_id' => $points_system->id]);
         }
-        return $user->increment('points', $points_system->points);
     }
 }
 
