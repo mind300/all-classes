@@ -152,6 +152,7 @@ Route::group(['middleware' => ['api']], function () {
 
         // About
         Route::apiResource('abouts', 'Abouts\AboutController');
+        Route::post('abouts/{about}', 'Abouts\AboutController@update')->name('abouts.update');
 
         // Connections
         Route::apiResource('connections', 'Connections\ConnectionController');
