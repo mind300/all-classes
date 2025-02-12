@@ -13,7 +13,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $user = User::with('member.answers')->where('is_active', 1)->paginate(10);
+        $user = User::with('member.answers')->where('is_active', 0)->paginate(10);
         return contentResponse($user);
     }
 
