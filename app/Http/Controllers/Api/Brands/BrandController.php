@@ -57,8 +57,10 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $brand->supplier->forceDelete();
-        $brand->forceDelete();
+        if(isset($brand->supplier)){
+            $brand->supplier->setConnection('suppliers')->forceDelete();
+        }
+        $brand->setConnection('mind')->delete();
         return messageResponse();
     }
 }
