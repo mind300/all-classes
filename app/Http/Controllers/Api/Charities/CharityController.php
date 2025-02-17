@@ -14,7 +14,7 @@ class CharityController extends Controller
      */
     public function index()
     {
-        $charities = Charity::with(['media','services'])->paginate(10);
+        $charities = Charity::with(['media', 'services'])->paginate(10);
         return contentResponse($charities);
     }
 
@@ -36,7 +36,7 @@ class CharityController extends Controller
      */
     public function show(Charity $charity)
     {
-        return contentResponse($charity->load('media','services'));
+        return contentResponse($charity->load('media', 'services'));
     }
 
     /**
@@ -46,7 +46,9 @@ class CharityController extends Controller
     {
         // Update charity details
         $charity->update($request->validated());
-        $charity->services()->upsert($request->validated('services'), ['id'], ['title']);
+        if($request->has('services')){
+            $charity->services()->upsert($request->validated('services'), ['id'], ['title', 'description']);
+        }
         return messageResponse();
     }
 
