@@ -24,9 +24,7 @@ class CharityController extends Controller
     public function store(CharityRequest $request)
     {
         $charity = Charity::create($request->validated());
-        foreach ($request->validated('services') as $service) {
-            $charity = Service::create(array_merge($service, ['charity_id' => $charity->id]));
-        }
+        $charity->services()->createMany($request->validated('services'));
         if ($request->hasFile('media')) {
             $charity->addMediaFromRequest('media')->toMediaCollection('charity');
         }
@@ -38,7 +36,7 @@ class CharityController extends Controller
      */
     public function show(Charity $charity)
     {
-        return contentResponse($charity->load('media'));
+        return contentResponse($charity->load('media','services'));
     }
 
     /**
@@ -46,10 +44,9 @@ class CharityController extends Controller
      */
     public function update(CharityRequest $request, Charity $charity)
     {
+        // Update charity details
         $charity->update($request->validated());
-        if ($request->hasFile('media')) {
-            $charity->addMediaFromRequest('media')->toMediaCollection('charity');
-        }
+        $charity->services()->upsert($request->validated('services'), ['id'], ['title']);
         return messageResponse();
     }
 

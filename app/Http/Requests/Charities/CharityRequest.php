@@ -22,7 +22,7 @@ class CharityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'nullable|image',
+            'media' => 'nullable|image',
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
@@ -30,6 +30,7 @@ class CharityRequest extends FormRequest
             'email' => 'required|string',
             'description' => 'required|string',
             'services' => 'required|array',
+            'services.*.id' => 'nullable|integer',
             'services.*.title' => 'required|string',
             'services.*.description' => 'required|string',
         ];
