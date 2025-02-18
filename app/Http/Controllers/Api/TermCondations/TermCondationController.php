@@ -14,8 +14,8 @@ class TermCondationController extends Controller
      */
     public function index()
     {
-        $termsCondations = TermCondation::get();
-        return contentResponse($termsCondations);
+        $terms = TermCondation::get();
+        return contentResponse($term);
     }
 
     /**
@@ -23,33 +23,33 @@ class TermCondationController extends Controller
      */
     public function store(TermCondationRequest $request)
     {
-        $termsCondation = TermCondation::create($request->validated());
+        $term = TermCondation::create($request->validated());
         return messageResponse();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(TermCondation $termsCondation)
+    public function show(TermCondation $term)
     {
-        return contentResponse($termsCondation);
+        return contentResponse($term);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(TermCondationRequest $request, TermCondation $termsCondation)
+    public function update(TermCondationRequest $request, TermCondation $term)
     {
-        $termsCondation->update($request->validated());
+        $term->update($request->validated());
         return messageResponse();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TermCondation $termsCondation)
+    public function destroy(TermCondation $term)
     {
-        $termsCondation->forceDelete();
+        $term->forceDelete();
         return messageResponse();
     }
 }

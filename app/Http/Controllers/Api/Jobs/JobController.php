@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Api\Jobs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Jobs\JobRequest;
 use App\Models\JobAnnouncement;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobAnnouncements = JobAnnouncement::with(['media', 'user.member.media'])->paginate(10);
+        $jobAnnouncements = JobAnnouncement::when($request->user_id, function($query) use($request) {
+            return $query->where('user_id', $request->user_id);
+        })->with(['media', 'user.member.media'])->paginate(10);
         return contentResponse($jobAnnouncements);
     }
 
