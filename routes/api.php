@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Tests\TestController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -148,7 +149,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::apiResource('policies', 'Policies\PolicyController');
 
         // Terms & Condations
-        Route::apiResource('termsCondations', 'TermCondations\TermCondationController');
+        Route::apiResource('terms', 'TermCondations\TermCondationController');
 
         // About
         Route::apiResource('abouts', 'Abouts\AboutController');
@@ -212,3 +213,6 @@ Route::group(['middleware' => ['api']], function () {
 
     Route::get('test', 'News\NewsController@test');
 });
+
+
+Route::get('test', [TestController::class, 'testRole']);

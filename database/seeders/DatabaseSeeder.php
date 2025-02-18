@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Roles Seeder
+        $this->call(LaratrustSeeder::class);
+
         // Community Seeders
         $this->call(CommunityUsersSeeder::class);
         // Add Fileds For All Models

@@ -5,18 +5,24 @@ namespace App\Http\Controllers\Api\BuySell;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BuySell\BuySellRequest;
 use App\Models\BuySell;
+use Illuminate\Http\Request;
 
 class BuySellController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $buysell = BuySell::with(['media', 'user.member.media'])->paginate(10);
+        $buysell = BuySell::when($request->user_id, function ($query) use ($request) {
+            return $query->where('user_id', $request->user_id);
+        })
+        ->with(['media', 'user.member.media'])
+        ->paginate(10);
+    
         return contentResponse($buysell);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */

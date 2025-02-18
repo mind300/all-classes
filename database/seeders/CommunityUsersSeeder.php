@@ -15,13 +15,13 @@ class CommunityUsersSeeder extends Seeder
     {
         // ============================================================== //
         // Adding a user with more details filled in
-        User::create([
+        $user = User::create([
             'name' => 'Ahmed Sabry',
             'email' => 'ahmaasabry22@gmail.com',
             'password' => '12345test',
         ]);
 
-        Member::create([
+        $member = Member::create([
             'first_name' => 'Ahmed',
             'last_name' => 'Sabry',
             'mobile_number' => '1234567890',
@@ -37,6 +37,7 @@ class CommunityUsersSeeder extends Seeder
             'followers_number' => 0,
             'user_id' => 1
         ]);
+
         // ============================================================== //
         User::create([
             'name' => 'Anton Abdallah',

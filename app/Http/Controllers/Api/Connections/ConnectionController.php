@@ -47,12 +47,10 @@ class ConnectionController extends Controller
     public function show(Member $connection)
     {
         $auth = auth_user()->member;
-
         $connection->is_followed = $connection->following->contains(function ($follow) use ($auth) {
             return $follow->pivot->follower_id === $auth->id;
         });
-
-        return contentResponse($connection->load('user.jobs.media', 'user.buy_sells.media')->setHidden(['following']));
+        return contentResponse($connection->load('media', 'user')->setHidden(['following']));
     }
 
 
