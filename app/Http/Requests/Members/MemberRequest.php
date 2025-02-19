@@ -26,7 +26,7 @@ class MemberRequest extends FormRequest
         return [
             'media' => 'nullable|image',
             'cover' => 'nullable|image',
-            'media_deleted' => 'nullable|boolean|in:1',
+            'media_deleted_id' => 'nullable|integer',
             'email' => $user_id ? 'required|email|unique:users,email,' . $user_id : 'nullable',
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',

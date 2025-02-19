@@ -69,8 +69,8 @@ class MemberController extends Controller
         if ($request->hasFile('cover')) {
             $member->addMediaFromRequest('cover')->toMediaCollection('cover');
         }
-        if ($request->fill('media_deleted')) {
-            $member->media->delete();
+        if ($request->filled('media_deleted_id')) {
+            $member->media->where('id', $request->media_deleted_id)->first()->delete();
         }
         return messageResponse();
     }
