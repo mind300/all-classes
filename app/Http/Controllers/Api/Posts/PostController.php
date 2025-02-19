@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\Posts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\PostRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with(['media', 'user.member.media', 'likes', 'last_comment.user.member.media'])->latest()->paginate(10);
+        $posts = Post::where('room_id', $request->room_id)->with(['media', 'user.member.media', 'likes', 'last_comment.user.member.media'])->latest()->paginate(10);
         return contentResponse($posts);
     }
 

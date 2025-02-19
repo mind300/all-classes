@@ -55,7 +55,7 @@ if (!function_exists('authResponse')) {
             'email' => auth_user()->email,
             'points' => $points,
             'is_member' => $is_member,
-            'member_status' => auth_user()->is_active ? 'Approved' : 'Review',
+            'member_status' => auth_user()->is_active,
             'role' => auth_user()->roles[0]->name,
             'device_token' => auth_user()->device_token,
             'token' => $token,
