@@ -48,8 +48,9 @@ class Member extends BaseModel
     // Each member has many answers
     public function answers()
     {
-        return $this->hasMany(MemberAnswer::class,);
+        return $this->hasMany(MemberAnswer::class)->with('questions');
     }
+
 
     // Each member belong to many chats
     public function chats()

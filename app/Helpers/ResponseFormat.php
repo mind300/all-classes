@@ -56,7 +56,7 @@ if (!function_exists('authResponse')) {
             'points' => $points,
             'is_member' => $is_member,
             'member_status' => auth_user()->is_active,
-            'role' => auth_user()->roles[0]->name,
+            'role' => auth_user()->roles[0]->name ?? null,
             'device_token' => auth_user()->device_token,
             'token' => $token,
             'message' => $message,
@@ -107,7 +107,7 @@ if (!function_exists('messageResponse')) {
             'success' => $success,
             'status' => $status,
         ];
-        if(isset($token)){
+        if (isset($token)) {
             $response['token'] = $token;
         }
         return response()->json($response, $status);
