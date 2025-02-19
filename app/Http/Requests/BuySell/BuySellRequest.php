@@ -25,7 +25,6 @@ class BuySellRequest extends FormRequest
             'media' => 'nullable|image',
             'title' => 'required|string',
             'price' => 'required|numeric',
-            'discount' => 'nullable|numeric',
             'description' => 'required|string',
         ];
     }

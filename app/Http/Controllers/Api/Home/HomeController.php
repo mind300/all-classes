@@ -27,7 +27,7 @@ class HomeController extends Controller
             'charties' => Charity::with('media')->latest()->limit(3)->get(),
             'offers' => Offer::with(['media','brand.media'])->latest()->limit(3)->get(),
             'buy_sells' => BuySell::with('media', 'user.member.media')->latest()->limit(3)->get(),
-            'members' => Member::with('media')->latest()->limit(3)->get(),
+            'members' => Member::with('media')->latest()->limit(10)->get(),
         ];
         return contentResponse($response);
     }

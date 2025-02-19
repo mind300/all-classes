@@ -25,7 +25,6 @@ class BuySellFactory extends Factory
             'title' => $this->faker->words(3, true), // Generates a title with 3 words
             'place' => $this->faker->city(),        // Generates a random city as the place
             'price' => $this->faker->randomFloat(2, 10, 1000), // Generates a random price between 10 and 1000
-            'discount' => $this->faker->numberBetween(0, 50), // Discount percentage
             'description' => $this->faker->paragraph(),      // A random paragraph as description
             'user_id' => 1                  // Assumes a User factory exists
         ];

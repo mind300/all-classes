@@ -24,7 +24,6 @@ class ProfileController extends Controller
     {
         $profile = Profile::create($request->validated());
         $profile->user()->associate(auth_user())->save();
-
         return messageResponse();
     }
 

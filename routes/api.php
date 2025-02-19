@@ -12,22 +12,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['api']], function () {
 
-    Route::group(['middleware' => 'verify.app', 'prefix' => 'auth'], function () {
+    Route::group(['middleware' => 'verify.app', 'controller' => 'Auth\AuthController', 'prefix' => 'auth'], function () {
         // Authintication
-        Route::post('login', 'Auth\AuthController@login');
-        Route::post('register', 'Auth\AuthController@register');
-        Route::post('/password/forget', 'Auth\AuthController@forgetPassword')->name('password.email');
-        Route::post('/password/reset', 'Auth\AuthController@resetPassword')->name('password.reset');
-        Route::post('/check/token', 'Auth\AuthController@checkToken');
+        Route::post('login', 'login');
+        Route::post('register', 'register');
+        Route::post('/password/forget', 'passwordForget');
+        Route::post('/password/reset', 'passwordReset');
+        Route::post('/otp/check', 'otpCheck');
     });
 
-    Route::group(['middleware' => 'auth:mind,suppliers,community', 'prefix' => 'auth'], function () {
+    Route::group(['middleware' => 'auth:mind,suppliers,community', 'controller' => 'Auth\AuthController', 'prefix' => 'auth'], function () {
         // Authorization
-        Route::post('me', 'Auth\AuthController@me');
-        Route::post('password/change', 'Auth\AuthController@changePassword');
-        Route::post('permissions', 'Auth\AuthController@permissions');
-        Route::post('refresh', 'Auth\AuthController@refresh');
-        Route::post('logout', 'Auth\AuthController@logout');
+        Route::post('me', 'me');
+        Route::post('password/change', 'changePassword');
+        Route::post('permissions', 'permissions');
+        Route::post('refresh', 'refresh');
+        Route::post('logout', 'logout');
     });
 
     /*

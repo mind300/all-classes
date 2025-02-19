@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\User;
 use App\Services\DatabaseSwitcher;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 
 class MindUsersSeeder extends Seeder
 {
@@ -18,14 +19,11 @@ class MindUsersSeeder extends Seeder
         $databaseSwitcher->setConnection('mind');
 
         // Adding a user with more details filled in
-        User::create([
-            'email' => 'khaledmoussa202@gmail.com',
+        $superadmin = User::create([
+            'name' => 'Shereif Hashem',
+            'email' => 'shashem@mindholding.net',
             'password' => '12345test',
         ]);
-
-        // Adding a brand
-        Brand::create([
-            'name' => 'Zara'
-        ]);
+        $superadmin->syncRoles(['superadmin']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\BuySell;
 use App\Models\Charity;
 use App\Models\Event;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
 
         // Community Seeders
         $this->call(CommunityUsersSeeder::class);
+
         // Add Fileds For All Models
         $news = News::factory()->create();
         $buyAndSells = BuySell::factory()->create();
@@ -31,11 +33,13 @@ class DatabaseSeeder extends Seeder
         $events = Event::factory()->create();
 
         // Roles Seeder
+        config(['database.default' => 'mind']);
         $this->call(LaratrustSeeder::class);
 
         // Mind Seeders
         $this->call(MindUsersSeeder::class);
         // Add Fileds For All Models
+        $offers = Brand::factory()->create();
         $offers = Offer::factory()->create();
         $charities = Charity::factory()->create();
 

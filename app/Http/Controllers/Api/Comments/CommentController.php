@@ -25,6 +25,7 @@ class CommentController extends Controller
                 break;
         }
         $comment = Comment::create($request->safe()->except('model_type') + ['user_id' => auth_user_id(), 'model_id' => $model_id, 'model_type' => $model_type]);
+        $comment->post()->increment('comment_count');
         return messageResponse();
     }
 

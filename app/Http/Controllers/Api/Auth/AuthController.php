@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ForgetPassword;
 // Requests
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\OtpRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPassword;
 use App\Http\Requests\Auth\TokenRequest;
@@ -16,10 +17,23 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 // Models
 use App\Models\User;
+use App\Notifications\OtpNotification;
+use Carbon\Carbon;
+use Ichtrojan\Otp\Otp;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    protected $otp;
+
+    public function __construct()
+    {
+        $this->otp = new Otp();
+    }
+
     // Get a JWT via given credentials.
     public function login(LoginRequest $request)
     {
@@ -61,37 +75,78 @@ class AuthController extends Controller
     }
 
     // Forget Password
-    public function forgetPassword(ForgetPassword $request)
+    public function passwordForget(Request $request)
     {
-        $status = Password::sendResetLink($request->validated());
-        return $status[0] === Password::RESET_LINK_SENT ? messageResponse($status[0]) : messageResponse($status[0], false, $status[1]);
+        $request->validate(['email' => 'required|email|exists:users,email']);
+        $user = User::where('email', $request->email)->first();
+        $otp = $this->otp->generate($user->email, 'numeric', 4, 15);
+        $user->notify(new OtpNotification($otp->token));
+        return messageResponse('OTP generated successfully');
+    }
+
+    /**
+     * Validate OTP and Generate JWT Token with 1-Minute Expiry
+     */
+    public function otpCheck(OtpRequest $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required|string|min:4'
+        ]);
+
+        // Validate OTP
+        $otpValidation = $this->otp->validate($request->email, $request->otp);
+        if (!$otpValidation->status) {
+            return messageResponse('OTP not valid', false, 422);
+        }
+
+        // Get user
+        $user = User::where('email', $request->email)->first();
+
+        // Generate JWT token with 1-minute expiry
+        $token = JWTAuth::claims([
+            'email' => $request->email,
+            'exp' => Carbon::now()->addWeek(1)->timestamp
+        ])->fromUser($user);
+        return messageResponse('OTP verified successfully', token: $token);
     }
 
     // Reset Password
-    public function resetPassword(ResetPassword $request)
+    public function passwordReset(ResetPassword $request)
     {
-        $status = Password::reset($request->validated(), function (User $user, string $password) {
-            $user->forceFill(['password' => $password])->setRememberToken(Str::random(60));
+        try {
+            // Verify token and extract email
+            $payload = JWTAuth::setToken($request->token)->getPayload();
+            $email = $payload->get('email');
+            $exp = $payload->get('exp');
+
+            // Check if the token has expired
+            if (Carbon::now()->timestamp > $exp) {
+                return messageResponse('Token has expired', false, 401);
+            }
+
+            // Get user from email
+            $user = User::where('email', $email)->first();
+            if (!$user) {
+                return messageResponse('Error occured user not found', false, 404);
+            }
+            // Update password securely
+            $user->password = $request->password;
             $user->save();
-            event(new PasswordReset($user));
-        });
-        return $status[0] === Password::PASSWORD_RESET ? messageResponse($status[0]) : messageResponse($status[0], false, $status[1]);
+            JWTAuth::invalidate($request->token);
+            return messageResponse();
+        } catch (JWTException $e) {
+            return messageResponse('Invalid or expired token', false, 401);
+        }
     }
 
     // Change Password
     public function changePassword(ChangePasswordRequest $request)
     {
-        // Get the authenticated user
         $user = auth()->user();
-
-        // Update the user's password
         $user->forceFill(['password' => $request->validated('new_password')])->save();
-
-        // Optionally, reset the remember token to force the user to log in again
         $user->setRememberToken(Str::random(60));
         $user->save();
-
-        // Return a success message response
         return messageResponse('Password changed successfully');
     }
 

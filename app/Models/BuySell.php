@@ -13,7 +13,6 @@ class BuySell extends BaseModel
         'title',
         'place',
         'price',
-        'discount',
         'description',
         'user_id'
     ];

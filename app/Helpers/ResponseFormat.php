@@ -56,7 +56,7 @@ if (!function_exists('authResponse')) {
             'points' => $points,
             'is_member' => $is_member,
             'member_status' => auth_user()->is_active ? 'Approved' : 'Review',
-            'role' => auth_user()->roles,
+            'role' => auth_user()->roles[0]->name,
             'device_token' => auth_user()->device_token,
             'token' => $token,
             'message' => $message,
@@ -100,12 +100,16 @@ if (!function_exists('contentResponse')) {
 
 // For Message Response
 if (!function_exists('messageResponse')) {
-    function messageResponse($message = 'success', $success = true, $status = 200)
+    function messageResponse($message = 'success', $success = true, $status = 200, $token = null)
     {
-        return response()->json([
+        $response = [
             'message' => $message,
             'success' => $success,
             'status' => $status,
-        ], $status);
+        ];
+        if(isset($token)){
+            $response['token'] = $token;
+        }
+        return response()->json($response, $status);
     }
 }

@@ -17,12 +17,11 @@ class BuySellController extends Controller
         $buysell = BuySell::when($request->user_id, function ($query) use ($request) {
             return $query->where('user_id', $request->user_id);
         })
-        ->with(['media', 'user.member.media'])
-        ->paginate(10);
-    
+            ->with(['media', 'user.member.media'])
+            ->paginate(10);
         return contentResponse($buysell);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
